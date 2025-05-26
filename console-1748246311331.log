@@ -1,0 +1,127 @@
+let arr = [10 , 20 , 30 , 40 , 50 , 60];
+undefined
+arr.findIndex((ele)=>ele === 30);
+2
+arr.find((ele)=>ele === 30);
+30
+//Asncronous Programming
+undefined
+console.log("Yash");
+VM226:1 Yash
+undefined
+setTimeout(()=>{
+    console.log("Yash");
+} , 3000);
+1
+VM338:2 Yash
+setTimeout(()=>{
+    console.log("Yash");
+} , 3000);
+2
+VM342:2 Yash
+let interval = setInterval(()=>{
+    console.log("Yash");
+} , 3000);
+undefined
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+clearInterval
+ƒ clearInterval() { [native code] }
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+VM386:2 Yash
+clearInterval(interval);
+undefined
+setTimeout(()=>{
+    console.log("Yash");
+} , 3000);
+console.log("Hello");
+
+VM508:4 Hello
+undefined
+VM508:2 Yash
+setTimeout(()=>{
+    console.log("Yash");
+});
+console.log("Hello");
+
+VM529:4 Hello
+undefined
+VM529:2 Yash
+function greet(name){
+    console.log(`Good Morning ${name}`);
+}
+
+
+function greetings(g , name){
+setTimeout(()=>{
+    g(name);
+},3000);
+
+VM765:10 Uncaught SyntaxError: Unexpected end of input
+function greet(name){
+    console.log(`Good Morning ${name}`);
+}
+
+
+function greetings(g , name){
+setTimeout(()=>{
+    g(name);
+},3000);
+}
+
+undefined
+greetings(greet , "Yash");
+undefined
+VM769:2 Good Morning Yash
+const promise = new Promise((res , rej)=>{
+    setTimeout(()=>{
+       res("Promise is Resolved"); 
+    }, 3000);
+});
+undefined
+promise.then((res)=>console.log(res)).catch((err)=>console.log(err));
+VM1227:1 Promise is Resolved
+Promise {<fulfilled>: undefined}
+function doCall(){
+    const promise = new Promise((res , rej)=>{
+    setTimeout(()=>{
+       res("Promise is Resolved"); 
+    }, 3000);
+});
+    return promise;
+}
+undefined
+const promise = doCall();
+undefined
+promise.then((res)=>console.log(res)).catch((err)=>console.log(err));
+Promise {<pending>}
+VM1420:1 Promise is Resolved
+promise.then((res)=>console.log(res)).catch((err)=>console.log(err));
+VM1424:1 Promise is Resolved
+Promise {<fulfilled>: undefined}
