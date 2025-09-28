@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flipkart - The Big Billion Days Sale</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      /* Custom animations for smooth transitions */
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .animate-slide-in {
+        animation: slideIn 0.5s ease-out;
+      }
+
+      .animate-fade-in {
+        animation: fadeIn 0.3s ease-in;
+      }
+
+      /* Smooth hover transitions for all interactive elements */
+      .hover-scale {
+        transition: all 0.3s ease;
+      }
+
+      .hover-scale:hover {
+        transform: scale(1.05);
+      }
+
+      /* Custom scrollbar for carousel */
+      .carousel-container::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* Gradient overlay for banners */
+      .gradient-overlay {
+        background: linear-gradient(
+          45deg,
+          rgba(0, 0, 0, 0.1),
+          rgba(255, 255, 255, 0.1)
+        );
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- HEADER/NAVBAR SECTION -->
+    <!-- Main navigation bar with logo, search, and user actions -->
+    <header class="bg-blue-600 text-white shadow-lg sticky top-0 z-50">
+      <div class="container mx-auto px-4">
+        <!-- Top bar with logo and main navigation -->
+        <div class="flex items-center justify-between py-3">
+          <!-- Logo Section -->
+          <div class="flex items-center space-x-4">
+            <!-- Flipkart logo with italic styling -->
+            <h1 class="text-2xl font-bold italic">Flipkart</h1>
+            <!-- Tagline with smaller text and subtle styling -->
+            <span class="text-xs italic opacity-75"
+              >Explore Plus <i class="fas fa-star text-yellow-400"></i
+            ></span>
+          </div>
+
+          <!-- Search Bar - takes up most of the center space -->
+          <div class="flex-1 max-w-2xl mx-8">
+            <div class="relative">
+              <!-- Search input with rounded corners and padding -->
+              <input
+                type="text"
+                placeholder="Search for products, brands and more"
+                class="w-full px-4 py-2 pl-12 text-gray-800 rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+              />
+              <!-- Search icon positioned absolutely inside the input -->
+              <i class="fas fa-search absolute left-4 top-3 text-gray-400"></i>
+            </div>
+          </div>
+
+          <!-- Right side navigation items -->
+          <div class="flex items-center space-x-6">
+            <!-- Login button with hover effect -->
+            <button
+              class="hover:bg-blue-700 px-4 py-2 rounded transition-colors"
+            >
+              <i class="fas fa-user mr-2"></i>Login
+            </button>
+
+            <!-- Become Seller link -->
+            <a href="#" class="hover:underline">Become a Seller</a>
+
+            <!-- More dropdown with icon -->
+            <div class="relative group">
+              <button
+                class="hover:bg-blue-700 px-2 py-2 rounded transition-colors"
+              >
+                More <i class="fas fa-chevron-down ml-1"></i>
+              </button>
+              <!-- Dropdown menu (hidden by default, shown on hover) -->
+              <div
+                class="absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200"
+              >
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100"
+                  >Gift Cards</a
+                >
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100"
+                  >Sell on Flipkart</a
+                >
+              </div>
+            </div>
+
+            <!-- Cart icon with item count badge -->
+            <button
+              class="relative hover:bg-blue-700 px-3 py-2 rounded transition-colors"
+            >
+              <i class="fas fa-shopping-cart text-xl"></i>
+              <span
+                class="absolute -top-1 -right-1 bg-orange-500 text-xs rounded-full h-5 w-5 flex items-center justify-center"
+                >2</span
+              >
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- CATEGORY SECTION - Flipkart Original Style -->
+    <!-- White background with rounded category cards in grid layout -->
+    <section class="bg-gray-50 py-4">
+      <div class="container mx-auto px-4">
+        <!-- Categories container with white background and shadow -->
+        <div class="bg-white rounded-md shadow-sm p-6">
+          <!-- Categories grid - responsive layout -->
+          <div class="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-10 gap-4">
+            <!-- Mobiles Category -->
+            <div class="flex flex-col items-center group cursor-pointer">
+              <div class="w-16 h-16 mb-3 overflow-hidden">
+                <!-- Mobile phone icon in a circular background -->
+                <div
+                  class="w-full h-full bg-blue-100 rounded-full flex items-center justify-center group-hover:bg-blue-200 transition-colors"
+                >
+                  <i class="fas fa-mobile-alt text-2xl text-blue-600"></i>
+                </div>
+              </div>
+              <span
+                class="text-xs font-medium text-gray-800 text-center leading-tight"
+                >Mobiles</span
+              >
+            </div>
+
+            <!-- Fashion Category -->
+            <div class="flex flex-col items-center group cursor-pointer">
+              <div class="w-16 h-16 mb-3 overflow-hidden">
+                <div
+                  class="w-full h-full bg-pink-100 rounded-full flex items-center justify-center group-hover:bg-pink-200 transition-colors"
+                >
+                  <i class="fas fa-tshirt text-2xl text-pink-600"></i>
+                </div>
+              </div>
+              <span
+                class="text-xs font-medium text-gray-800 text-center leading-tight"
+                >Fashion</span
+              >
+            </div>
+
+            <!-- Electronics Category -->
+            <div class="flex flex-col items-center group cursor-pointer">
+              <div class="w-16 h-16 mb-3 overflow-hidden">
+                <div
+                  class="w-full h-full bg-green-100 rounded-full flex items-center justify-center group-hover:bg-green-200 transition-colors"
+                >
+                  <i class="fas fa-laptop text-2xl text-green-600"></i>
+                </div>
+              </div>
+              <span
+                class="text-xs font-medium text-gray-800 text-center leading-tight"
+                >Electronics</span
+              >
+            </div>
+
+            <!-- Home & Furniture Category -->
+            <div class="flex flex-col items-center group cursor-pointer">
+              <div class="w-16 h-16 mb-3 overflow-hidden">
+                <div
+                  class="w-full h-full bg-orange-100 rounded-full flex items-center justify-center group-hover:bg-orange-200 transition-colors"
+                >
+                  <i class="fas fa-home text-2xl text-orange-600"></i>
+                </div>
+              </div>
+              <span
+                class="text-xs font-medium text-gray-800 text-center leading-tight"
+                >Home & Furniture</span
+              >
+            </div>
+
+            <!-- Appliances Category -->
+            <div class="flex flex-col items-center group cursor-pointer">
+              <div class="w-16 h-16 mb-3 overflow-hidden">
+                <div
+                  class="w-full h-full bg-red-100 rounded-full flex items-center justify-center group-hover:bg-red-200 transition-colors"
+                >
+                  <i class="fas fa-blender text-2xl text-red-600"></i>
+                </div>
+              </div>
+              <span
+                class="text-xs font-medium text-gray-800 text-center leading-tight"
+                >Appliances</span
+              >
+            </div>
+
+            <!-- Travel Category -->
+            <div class="flex flex-col items-center group cursor-pointer">
+              <div class="w-16 h-16 mb-3 overflow-hidden">
+                <div
+                  class="w-full h-full bg-purple-100 rounded-full flex items-center justify-center group-hover:bg-purple-200 transition-colors"
+                >
+                  <i class="fas fa-plane text-2xl text-purple-600"></i>
+                </div>
+              </div>
+              <span
+                class="text-xs font-medium text-gray-800 text-center leading-tight"
+                >Travel</span
+              >
+            </div>
+
+            <!-- Beauty, Toys & More Category -->
+            <div class="flex flex-col items-center group cursor-pointer">
+              <div class="w-16 h-16 mb-3 overflow-hidden">
+                <div
+                  class="w-full h-full bg-teal-100 rounded-full flex items-center justify-center group-hover:bg-teal-200 transition-colors"
+                >
+                  <i class="fas fa-spa text-2xl text-teal-600"></i>
+                </div>
+              </div>
+              <span
+                class="text-xs font-medium text-gray-800 text-center leading-tight"
+                >Beauty, Toys & More</span
+              >
+            </div>
+
+            <!-- Two Wheelers Category -->
+            <div class="flex flex-col items-center group cursor-pointer">
+              <div class="w-16 h-16 mb-3 overflow-hidden">
+                <div
+                  class="w-full h-full bg-indigo-100 rounded-full flex items-center justify-center group-hover:bg-indigo-200 transition-colors"
+                >
+                  <i class="fas fa-motorcycle text-2xl text-indigo-600"></i>
+                </div>
+              </div>
+              <span
+                class="text-xs font-medium text-gray-800 text-center leading-tight"
+                >Two Wheelers</span
+              >
+            </div>
+
+            <!-- Books Category -->
+            <div class="flex flex-col items-center group cursor-pointer">
+              <div class="w-16 h-16 mb-3 overflow-hidden">
+                <div
+                  class="w-full h-full bg-yellow-100 rounded-full flex items-center justify-center group-hover:bg-yellow-200 transition-colors"
+                >
+                  <i class="fas fa-book text-2xl text-yellow-600"></i>
+                </div>
+              </div>
+              <span
+                class="text-xs font-medium text-gray-800 text-center leading-tight"
+                >Books & Sports</span
+              >
+            </div>
+
+            <!-- Grocery Category -->
+            <div class="flex flex-col items-center group cursor-pointer">
+              <div class="w-16 h-16 mb-3 overflow-hidden">
+                <div
+                  class="w-full h-full bg-emerald-100 rounded-full flex items-center justify-center group-hover:bg-emerald-200 transition-colors"
+                >
+                  <i
+                    class="fas fa-shopping-basket text-2xl text-emerald-600"
+                  ></i>
+                </div>
+              </div>
+              <span
+                class="text-xs font-medium text-gray-800 text-center leading-tight"
+                >Grocery</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HERO/BANNER CAROUSEL SECTION -->
+    <!-- Main promotional banner with automatic sliding carousel -->
+    <section class="py-4">
+      <div class="container mx-auto px-4">
+        <!-- Carousel container with relative positioning for navigation buttons -->
+        <div class="relative bg-white rounded-lg overflow-hidden shadow-lg">
+          <!-- Carousel slides container -->
+          <div
+            id="carousel"
+            class="flex transition-transform duration-500 ease-in-out"
+          >
+            <!-- Slide 1 - Big Billion Days Sale -->
+            <div class="w-full flex-shrink-0 relative">
+              <div
+                class="bg-gradient-to-r from-yellow-400 to-orange-500 h-64 flex items-center justify-between px-12"
+              >
+                <!-- Left side content -->
+                <div class="text-white animate-slide-in">
+                  <h2 class="text-4xl font-bold mb-2">Big Billion Days</h2>
+                  <p class="text-xl mb-4">The Biggest Sale of the Year</p>
+                  <button
+                    class="bg-white text-orange-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                  >
+                    Shop Now
+                  </button>
+                </div>
+                <!-- Right side image placeholder -->
+                <div class="hidden md:block">
+                  <div
+                    class="w-48 h-32 bg-white bg-opacity-20 rounded-lg flex items-center justify-center"
+                  >
+                    <i class="fas fa-gift text-6xl text-white"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2 - Electronics Sale -->
+            <div class="w-full flex-shrink-0 relative">
+              <div
+                class="bg-gradient-to-r from-blue-500 to-purple-600 h-64 flex items-center justify-between px-12"
+              >
+                <div class="text-white animate-slide-in">
+                  <h2 class="text-4xl font-bold mb-2">Electronics Sale</h2>
+                  <p class="text-xl mb-4">Up to 80% off on Mobiles & Laptops</p>
+                  <button
+                    class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                  >
+                    Explore Deals
+                  </button>
+                </div>
+                <div class="hidden md:block">
+                  <div
+                    class="w-48 h-32 bg-white bg-opacity-20 rounded-lg flex items-center justify-center"
+                  >
+                    <i class="fas fa-mobile-alt text-6xl text-white"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3 - Fashion Sale -->
+            <div class="w-full flex-shrink-0 relative">
+              <div
+                class="bg-gradient-to-r from-pink-500 to-red-500 h-64 flex items-center justify-between px-12"
+              >
+                <div class="text-white animate-slide-in">
+                  <h2 class="text-4xl font-bold mb-2">Fashion Fiesta</h2>
+                  <p class="text-xl mb-4">
+                    Trendy Clothes at Unbeatable Prices
+                  </p>
+                  <button
+                    class="bg-white text-pink-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                  >
+                    Shop Fashion
+                  </button>
+                </div>
+                <div class="hidden md:block">
+                  <div
+                    class="w-48 h-32 bg-white bg-opacity-20 rounded-lg flex items-center justify-center"
+                  >
+                    <i class="fas fa-tshirt text-6xl text-white"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Carousel Navigation Buttons -->
+          <!-- Previous button (positioned absolutely on the left) -->
+          <button
+            id="prevBtn"
+            class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-3 transition-all duration-200"
+          >
+            <i class="fas fa-chevron-left text-gray-700"></i>
+          </button>
+
+          <!-- Next button (positioned absolutely on the right) -->
+          <button
+            id="nextBtn"
+            class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 rounded-full p-3 transition-all duration-200"
+          >
+            <i class="fas fa-chevron-right text-gray-700"></i>
+          </button>
+
+          <!-- Carousel indicators (dots) -->
+          <div
+            class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2"
+          >
+            <button
+              class="w-3 h-3 rounded-full bg-white bg-opacity-60 indicator active"
+            ></button>
+            <button
+              class="w-3 h-3 rounded-full bg-white bg-opacity-60 indicator"
+            ></button>
+            <button
+              class="w-3 h-3 rounded-full bg-white bg-opacity-60 indicator"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCT SECTION WITH CAROUSEL -->
+    <!-- Featured products section with horizontal scrolling carousel -->
+    <section class="py-6">
+      <div class="container mx-auto px-4">
+        <!-- Section header with title and view all link -->
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-bold text-gray-800">Deals of the Day</h2>
+          <a href="#" class="text-blue-600 hover:underline font-medium"
+            >View All</a
+          >
+        </div>
+
+        <!-- Products carousel container -->
+        <div class="relative">
+          <!-- Products grid container with horizontal scroll -->
+          <div
+            id="productCarousel"
+            class="flex space-x-4 overflow-x-auto carousel-container pb-4"
+          >
+            <!-- Product Card 1 -->
+            <div
+              class="flex-shrink-0 w-64 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 hover-scale"
+            >
+              <!-- Product image container -->
+              <div class="relative overflow-hidden rounded-t-lg">
+                <div class="h-48 bg-gray-200 flex items-center justify-center">
+                  <i class="fas fa-mobile-alt text-4xl text-gray-400"></i>
+                </div>
+                <!-- Discount badge positioned absolutely -->
+                <div
+                  class="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-bold"
+                >
+                  65% OFF
+                </div>
+                <!-- Wishlist heart icon -->
+                <button
+                  class="absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors"
+                >
+                  <i class="far fa-heart text-gray-600"></i>
+                </button>
+              </div>
+
+              <!-- Product details section -->
+              <div class="p-4">
+                <h3 class="font-semibold text-gray-800 mb-2 truncate">
+                  iPhone 13 Pro Max
+                </h3>
+                <p class="text-gray-600 text-sm mb-2">256GB, Pacific Blue</p>
+
+                <!-- Price section with original and discounted price -->
+                <div class="flex items-center space-x-2 mb-2">
+                  <span class="text-lg font-bold text-gray-900">₹89,999</span>
+                  <span class="text-sm text-gray-500 line-through"
+                    >₹1,29,999</span
+                  >
+                </div>
+
+                <!-- Rating section with stars -->
+                <div class="flex items-center space-x-1 mb-3">
+                  <div class="flex text-yellow-400">
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="far fa-star text-xs"></i>
+                  </div>
+                  <span class="text-gray-500 text-xs">(4.2)</span>
+                </div>
+
+                <!-- Add to cart button -->
+                <button
+                  class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors font-medium"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+
+            <!-- Product Card 2 -->
+            <div
+              class="flex-shrink-0 w-64 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 hover-scale"
+            >
+              <div class="relative overflow-hidden rounded-t-lg">
+                <div class="h-48 bg-gray-200 flex items-center justify-center">
+                  <i class="fas fa-laptop text-4xl text-gray-400"></i>
+                </div>
+                <div
+                  class="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-bold"
+                >
+                  40% OFF
+                </div>
+                <button
+                  class="absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors"
+                >
+                  <i class="far fa-heart text-gray-600"></i>
+                </button>
+              </div>
+
+              <div class="p-4">
+                <h3 class="font-semibold text-gray-800 mb-2 truncate">
+                  MacBook Air M2
+                </h3>
+                <p class="text-gray-600 text-sm mb-2">13-inch, 256GB SSD</p>
+
+                <div class="flex items-center space-x-2 mb-2">
+                  <span class="text-lg font-bold text-gray-900">₹89,990</span>
+                  <span class="text-sm text-gray-500 line-through"
+                    >₹1,19,900</span
+                  >
+                </div>
+
+                <div class="flex items-center space-x-1 mb-3">
+                  <div class="flex text-yellow-400">
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="fas fa-star text-xs"></i>
+                  </div>
+                  <span class="text-gray-500 text-xs">(4.8)</span>
+                </div>
+
+                <button
+                  class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors font-medium"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+
+            <!-- Product Card 3 -->
+            <div
+              class="flex-shrink-0 w-64 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 hover-scale"
+            >
+              <div class="relative overflow-hidden rounded-t-lg">
+                <div class="h-48 bg-gray-200 flex items-center justify-center">
+                  <i class="fas fa-headphones text-4xl text-gray-400"></i>
+                </div>
+                <div
+                  class="absolute top-2 left-2 bg-orange-500 text-white px-2 py-1 rounded text-xs font-bold"
+                >
+                  55% OFF
+                </div>
+                <button
+                  class="absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors"
+                >
+                  <i class="far fa-heart text-gray-600"></i>
+                </button>
+              </div>
+
+              <div class="p-4">
+                <h3 class="font-semibold text-gray-800 mb-2 truncate">
+                  Sony WH-1000XM4
+                </h3>
+                <p class="text-gray-600 text-sm mb-2">
+                  Wireless Noise Cancelling
+                </p>
+
+                <div class="flex items-center space-x-2 mb-2">
+                  <span class="text-lg font-bold text-gray-900">₹13,990</span>
+                  <span class="text-sm text-gray-500 line-through"
+                    >₹29,990</span
+                  >
+                </div>
+
+                <div class="flex items-center space-x-1 mb-3">
+                  <div class="flex text-yellow-400">
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="far fa-star text-xs"></i>
+                  </div>
+                  <span class="text-gray-500 text-xs">(4.5)</span>
+                </div>
+
+                <button
+                  class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors font-medium"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+
+            <!-- Product Card 4 -->
+            <div
+              class="flex-shrink-0 w-64 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 hover-scale"
+            >
+              <div class="relative overflow-hidden rounded-t-lg">
+                <div class="h-48 bg-gray-200 flex items-center justify-center">
+                  <i class="fas fa-tv text-4xl text-gray-400"></i>
+                </div>
+                <div
+                  class="absolute top-2 left-2 bg-purple-500 text-white px-2 py-1 rounded text-xs font-bold"
+                >
+                  35% OFF
+                </div>
+                <button
+                  class="absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors"
+                >
+                  <i class="far fa-heart text-gray-600"></i>
+                </button>
+              </div>
+
+              <div class="p-4">
+                <h3 class="font-semibold text-gray-800 mb-2 truncate">
+                  Samsung 4K Smart TV
+                </h3>
+                <p class="text-gray-600 text-sm mb-2">55 inch, Ultra HD</p>
+
+                <div class="flex items-center space-x-2 mb-2">
+                  <span class="text-lg font-bold text-gray-900">₹45,990</span>
+                  <span class="text-sm text-gray-500 line-through"
+                    >₹69,990</span
+                  >
+                </div>
+
+                <div class="flex items-center space-x-1 mb-3">
+                  <div class="flex text-yellow-400">
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="far fa-star text-xs"></i>
+                  </div>
+                  <span class="text-gray-500 text-xs">(4.3)</span>
+                </div>
+
+                <button
+                  class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors font-medium"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+
+            <!-- Product Card 5 -->
+            <div
+              class="flex-shrink-0 w-64 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 hover-scale"
+            >
+              <div class="relative overflow-hidden rounded-t-lg">
+                <div class="h-48 bg-gray-200 flex items-center justify-center">
+                  <i class="fas fa-camera text-4xl text-gray-400"></i>
+                </div>
+                <div
+                  class="absolute top-2 left-2 bg-teal-500 text-white px-2 py-1 rounded text-xs font-bold"
+                >
+                  25% OFF
+                </div>
+                <button
+                  class="absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors"
+                >
+                  <i class="far fa-heart text-gray-600"></i>
+                </button>
+              </div>
+
+              <div class="p-4">
+                <h3 class="font-semibold text-gray-800 mb-2 truncate">
+                  Canon EOS R6
+                </h3>
+                <p class="text-gray-600 text-sm mb-2">Mirrorless Camera Body</p>
+
+                <div class="flex items-center space-x-2 mb-2">
+                  <span class="text-lg font-bold text-gray-900">₹1,79,999</span>
+                  <span class="text-sm text-gray-500 line-through"
+                    >₹2,39,999</span
+                  >
+                </div>
+
+                <div class="flex items-center space-x-1 mb-3">
+                  <div class="flex text-yellow-400">
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="fas fa-star text-xs"></i>
+                  </div>
+                  <span class="text-gray-500 text-xs">(4.7)</span>
+                </div>
+
+                <button
+                  class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors font-medium"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+
+            <!-- Product Card 6 -->
+            <div
+              class="flex-shrink-0 w-64 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 hover-scale"
+            >
+              <div class="relative overflow-hidden rounded-t-lg">
+                <div class="h-48 bg-gray-200 flex items-center justify-center">
+                  <i class="fas fa-gamepad text-4xl text-gray-400"></i>
+                </div>
+                <div
+                  class="absolute top-2 left-2 bg-indigo-500 text-white px-2 py-1 rounded text-xs font-bold"
+                >
+                  30% OFF
+                </div>
+                <button
+                  class="absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors"
+                >
+                  <i class="far fa-heart text-gray-600"></i>
+                </button>
+              </div>
+
+              <div class="p-4">
+                <h3 class="font-semibold text-gray-800 mb-2 truncate">
+                  PlayStation 5
+                </h3>
+                <p class="text-gray-600 text-sm mb-2">Gaming Console</p>
+
+                <div class="flex items-center space-x-2 mb-2">
+                  <span class="text-lg font-bold text-gray-900">₹34,990</span>
+                  <span class="text-sm text-gray-500 line-through"
+                    >₹49,990</span
+                  >
+                </div>
+
+                <div class="flex items-center space-x-1 mb-3">
+                  <div class="flex text-yellow-400">
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="fas fa-star text-xs"></i>
+                    <i class="fas fa-star text-xs"></i>
+                  </div>
+                  <span class="text-gray-500 text-xs">(4.9)</span>
+                </div>
+
+                <button
+                  class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors font-medium"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product carousel navigation buttons -->
+          <button
+            id="productPrevBtn"
+            class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50 transition-colors z-10"
+          >
+            <i class="fas fa-chevron-left text-gray-600"></i>
+          </button>
+
+          <button
+            id="productNextBtn"
+            class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50 transition-colors z-10"
+          >
+            <i class="fas fa-chevron-right text-gray-600"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- JAVASCRIPT FOR INTERACTIVE FUNCTIONALITY -->
+    <script>
+      // BANNER CAROUSEL FUNCTIONALITY
+      let currentSlide = 0; // Track current slide index
+      const totalSlides = 3; // Total number of slides in carousel
+      const carousel = document.getElementById("carousel");
+      const indicators = document.querySelectorAll(".indicator");
+
+      // Function to show specific slide
+      function showSlide(slideIndex) {
+        // Calculate transform value: each slide is 100% width, so multiply by index
+        carousel.style.transform = `translateX(-${slideIndex * 100}%)`;
+
+        // Update active indicator dot
+        indicators.forEach((indicator, index) => {
+          if (index === slideIndex) {
+            indicator.classList.add("bg-white");
+            indicator.classList.remove("bg-opacity-60");
+          } else {
+            indicator.classList.remove("bg-white");
+            indicator.classList.add("bg-opacity-60");
+          }
+        });
+      }
+
+      // Function to go to next slide
+      function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides; // Loop back to 0 after last slide
+        showSlide(currentSlide);
+      }
+
+      // Function to go to previous slide
+      function prevSlide() {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides; // Loop to last slide if at first
+        showSlide(currentSlide);
+      }
+
+      // Event listeners for navigation buttons
+      document.getElementById("nextBtn").addEventListener("click", nextSlide);
+      document.getElementById("prevBtn").addEventListener("click", prevSlide);
+
+      // Event listeners for indicator dots
+      indicators.forEach((indicator, index) => {
+        indicator.addEventListener("click", () => {
+          currentSlide = index;
+          showSlide(currentSlide);
+        });
+      });
+
+      // Auto-slide functionality - change slide every 5 seconds
+      setInterval(nextSlide, 5000);
+
+      // PRODUCT CAROUSEL FUNCTIONALITY
+      const productCarousel = document.getElementById("productCarousel");
+      const productPrevBtn = document.getElementById("productPrevBtn");
+      const productNextBtn = document.getElementById("productNextBtn");
+
+      // Scroll amount for each click (width of one product card plus gap)
+      const scrollAmount = 272; // 256px card width + 16px gap
+
+      // Function to scroll product carousel left
+      function scrollProductsLeft() {
+        productCarousel.scrollBy({
+          left: -scrollAmount, // Negative value scrolls left
+          behavior: "smooth", // Smooth scrolling animation
+        });
+      }
+
+      // Function to scroll product carousel right
+      function scrollProductsRight() {
+        productCarousel.scrollBy({
+          left: scrollAmount, // Positive value scrolls right
+          behavior: "smooth", // Smooth scrolling animation
+        });
+      }
+
+      // Event listeners for product carousel navigation
+      productPrevBtn.addEventListener("click", scrollProductsLeft);
+      productNextBtn.addEventListener("click", scrollProductsRight);
+
+      // WISHLIST FUNCTIONALITY
+      // Add click handlers to all wishlist heart buttons
+      document.querySelectorAll(".fa-heart").forEach((heart) => {
+        heart.addEventListener("click", function (e) {
+          e.preventDefault(); // Prevent default button behavior
+
+          // Toggle between filled and empty heart
+          if (this.classList.contains("far")) {
+            // Change to filled heart (add to wishlist)
+            this.classList.remove("far");
+            this.classList.add("fas");
+            this.classList.add("text-red-500");
+            this.classList.remove("text-gray-600");
+          } else {
+            // Change to empty heart (remove from wishlist)
+            this.classList.remove("fas");
+            this.classList.add("far");
+            this.classList.remove("text-red-500");
+            this.classList.add("text-gray-600");
+          }
+        });
+      });
+
+      // ADD TO CART FUNCTIONALITY
+      let cartCount = 2; // Initial cart count from HTML
+      const cartBadge = document.querySelector(".fa-shopping-cart + span");
+
+      // Find all "Add to Cart" buttons by iterating through all buttons
+      document.querySelectorAll("button").forEach((button) => {
+        if (button.textContent.trim() === "Add to Cart") {
+          button.addEventListener("click", function () {
+            // Increment cart count and update badge
+            cartCount++;
+            cartBadge.textContent = cartCount;
+
+            // Add visual feedback - change button text temporarily
+            const originalText = this.textContent;
+            this.textContent = "Added!";
+            this.classList.remove("bg-blue-600");
+            this.classList.add("bg-green-600");
+
+            // Reset button after 1.5 seconds
+            setTimeout(() => {
+              this.textContent = originalText;
+              this.classList.remove("bg-green-600");
+              this.classList.add("bg-blue-600");
+            }, 1500);
+          });
+        }
+      });
+
+      // SEARCH FUNCTIONALITY
+      const searchInput = document.querySelector(
+        'input[placeholder*="Search"]'
+      );
+
+      // Add search functionality with Enter key
+      searchInput.addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+          const searchTerm = this.value.trim();
+          if (searchTerm) {
+            // In a real application, this would redirect to search results
+            alert(`Searching for: ${searchTerm}`);
+          }
+        }
+      });
+
+      // RESPONSIVE BEHAVIOR
+      // Hide/show carousel navigation buttons based on screen size
+      function handleResponsiveNavigation() {
+        const isMobile = window.innerWidth < 768; // md breakpoint
+
+        if (isMobile) {
+          // On mobile, hide navigation buttons and rely on touch scrolling
+          productPrevBtn.style.display = "none";
+          productNextBtn.style.display = "none";
+        } else {
+          // On desktop, show navigation buttons
+          productPrevBtn.style.display = "block";
+          productNextBtn.style.display = "block";
+        }
+      }
+
+      // Call on page load and window resize
+      window.addEventListener("load", handleResponsiveNavigation);
+      window.addEventListener("resize", handleResponsiveNavigation);
+
+      // SMOOTH SCROLL FOR CATEGORY NAVIGATION
+      // Enable smooth horizontal scrolling for category bar on mobile
+      const categoryNav = document.querySelector(".carousel-container");
+
+      // Add touch/drag scrolling support for better mobile experience
+      let isDown = false;
+      let startX;
+      let scrollLeft;
+
+      categoryNav.addEventListener("mousedown", (e) => {
+        isDown = true;
+        startX = e.pageX - categoryNav.offsetLeft;
+        scrollLeft = categoryNav.scrollLeft;
+      });
+
+      categoryNav.addEventListener("mouseleave", () => {
+        isDown = false;
+      });
+
+      categoryNav.addEventListener("mouseup", () => {
+        isDown = false;
+      });
+
+      categoryNav.addEventListener("mousemove", (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - categoryNav.offsetLeft;
+        const walk = (x - startX) * 2; // Multiply by 2 for faster scrolling
+        categoryNav.scrollLeft = scrollLeft - walk;
+      });
+
+      // INTERSECTION OBSERVER FOR ANIMATIONS
+      // Add scroll-triggered animations for better user experience
+      const observerOptions = {
+        threshold: 0.1, // Trigger when 10% of element is visible
+        rootMargin: "0px 0px -50px 0px", // Trigger slightly before element is fully visible
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Add animation classes when elements come into view
+            entry.target.classList.add("animate-fade-in");
+          }
+        });
+      }, observerOptions);
+
+      // Observe product cards for scroll animations
+      document.querySelectorAll(".hover-scale").forEach((card) => {
+        observer.observe(card);
+      });
+
+      // LOADING STATE MANAGEMENT
+      // Simulate loading states for better UX
+      window.addEventListener("load", () => {
+        // Remove any loading classes and show content
+        document.body.classList.add("animate-fade-in");
+      });
+
+      // ERROR HANDLING
+      // Add error handling for carousel operations
+      window.addEventListener("error", (e) => {
+        console.error("An error occurred:", e.error);
+        // In a production app, you would log this to your error tracking service
+      });
+
+      // ACCESSIBILITY IMPROVEMENTS
+      // Add keyboard navigation support
+      document.addEventListener("keydown", (e) => {
+        // Arrow key navigation for main carousel
+        if (e.target.closest("#carousel")) {
+          if (e.key === "ArrowLeft") {
+            prevSlide();
+          } else if (e.key === "ArrowRight") {
+            nextSlide();
+          }
+        }
+      });
+
+      // Focus management for better keyboard navigation
+      document.querySelectorAll("button, a, input").forEach((element) => {
+        element.addEventListener("focus", function () {
+          this.style.outline = "2px solid #3B82F6"; // Blue focus outline
+          this.style.outlineOffset = "2px";
+        });
+
+        element.addEventListener("blur", function () {
+          this.style.outline = "none";
+        });
+      });
+    </script>
+  </body>
+</html>
