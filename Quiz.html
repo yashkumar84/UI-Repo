@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced JavaScript Quiz</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+        color: #fff;
+        min-height: 100vh;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        width: 200%;
+        height: 200%;
+        top: -50%;
+        left: -50%;
+        z-index: -1;
+        background: radial-gradient(
+          circle,
+          rgba(255, 107, 53, 0.1) 1px,
+          transparent 1px
+        );
+        background-size: 50px 50px;
+        animation: gridMove 20s linear infinite;
+      }
+
+      @keyframes gridMove {
+        0% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(50px, 50px);
+        }
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .header {
+        text-align: center;
+        padding: 50px 20px;
+        animation: fadeInDown 0.8s ease;
+      }
+
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .header h1 {
+        font-size: 4.5em;
+        background: linear-gradient(
+          135deg,
+          #ff6b35 0%,
+          #f7931e 50%,
+          #ffd700 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 15px;
+        text-shadow: 0 0 30px rgba(255, 107, 53, 0.3);
+        animation: glowPulse 3s ease-in-out infinite,
+          float 3s ease-in-out infinite;
+      }
+
+      @keyframes glowPulse {
+        0%,
+        100% {
+          filter: drop-shadow(0 0 15px rgba(255, 107, 53, 0.6));
+        }
+        50% {
+          filter: drop-shadow(0 0 35px rgba(255, 107, 53, 1));
+        }
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 15px;
+        background: #2a2a2a;
+        border-radius: 20px;
+        overflow: hidden;
+        margin: 30px 0;
+        box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+        position: relative;
+      }
+
+      .progress-bar::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        animation: progressShine 2s linear infinite;
+      }
+
+      @keyframes progressShine {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #ff6b35, #f7931e, #ffd700, #ff6b35);
+        background-size: 200% 100%;
+        width: 0%;
+        transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        box-shadow: 0 0 25px rgba(255, 107, 53, 0.8);
+        animation: gradientMove 3s linear infinite;
+      }
+
+      @keyframes gradientMove {
+        0% {
+          background-position: 0% 50%;
+        }
+        100% {
+          background-position: 200% 50%;
+        }
+      }
+
+      .quiz-card {
+        background: linear-gradient(145deg, #1e1e1e, #252525);
+        border-radius: 30px;
+        padding: 50px;
+        box-shadow: 0 30px 90px rgba(0, 0, 0, 0.8),
+          0 0 50px rgba(255, 107, 53, 0.1);
+        border: 2px solid rgba(255, 107, 53, 0.3);
+        animation: cardEntrance 1s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .quiz-card::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: conic-gradient(
+          from 0deg,
+          transparent,
+          rgba(255, 107, 53, 0.1),
+          transparent 30%
+        );
+        animation: rotate 10s linear infinite;
+      }
+
+      @keyframes rotate {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .quiz-card > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      @keyframes cardEntrance {
+        from {
+          opacity: 0;
+          transform: scale(0.9) rotateX(10deg);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) rotateX(0deg);
+        }
+      }
+
+      .question-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .question-number {
+        background: linear-gradient(135deg, #ff6b35, #f7931e);
+        color: white;
+        padding: 20px 40px;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 1.5em;
+        box-shadow: 0 10px 30px rgba(255, 107, 53, 0.5);
+        animation: numberPulse 2s ease-in-out infinite;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .question-number::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        animation: sweepLight 2s linear infinite;
+      }
+
+      @keyframes sweepLight {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+      @keyframes numberPulse {
+        0%,
+        100% {
+          transform: scale(1);
+          box-shadow: 0 10px 30px rgba(255, 107, 53, 0.5);
+        }
+        50% {
+          transform: scale(1.08);
+          box-shadow: 0 15px 45px rgba(255, 107, 53, 0.8);
+        }
+      }
+
+      .question-type {
+        background: linear-gradient(135deg, #00c9a7, #00d4a4);
+        padding: 14px 28px;
+        border-radius: 30px;
+        font-size: 1.2em;
+        text-transform: uppercase;
+        font-weight: bold;
+        box-shadow: 0 8px 25px rgba(0, 201, 167, 0.4);
+        animation: typeBounce 1s ease-in-out infinite;
+      }
+
+      @keyframes typeBounce {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-5px) rotate(2deg);
+        }
+      }
+
+      .question-text {
+        font-size: 2.4em;
+        margin: 40px 0;
+        line-height: 1.7;
+        font-weight: 600;
+        color: #ffd700;
+        text-shadow: 0 3px 15px rgba(255, 215, 0, 0.3);
+        animation: questionSlide 0.8s ease, textGlow 2s ease-in-out infinite;
+      }
+
+      @keyframes questionSlide {
+        from {
+          opacity: 0;
+          transform: translateX(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes textGlow {
+        0%,
+        100% {
+          text-shadow: 0 3px 15px rgba(255, 215, 0, 0.3);
+        }
+        50% {
+          text-shadow: 0 3px 25px rgba(255, 215, 0, 0.6);
+        }
+      }
+
+      .code-block {
+        background: #0d0d0d;
+        border-left: 6px solid #ff6b35;
+        border-radius: 18px;
+        padding: 35px;
+        margin: 35px 0;
+        font-family: "Courier New", monospace;
+        font-size: 1.15em;
+        overflow-x: auto;
+        box-shadow: inset 0 3px 20px rgba(0, 0, 0, 0.6),
+          0 5px 30px rgba(255, 107, 53, 0.2);
+        animation: codeAppear 0.8s ease;
+        position: relative;
+      }
+
+      @keyframes codeAppear {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .code-block::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 6px;
+        height: 100%;
+        background: linear-gradient(180deg, #ff6b35, #ffd700);
+        animation: borderGlow 2s linear infinite;
+      }
+
+      @keyframes borderGlow {
+        0%,
+        100% {
+          opacity: 0.5;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      .code-block pre {
+        margin: 0;
+        color: #00d4a4;
+        white-space: pre-wrap;
+        font-size: 1.2em;
+        line-height: 2;
+      }
+
+      .options {
+        display: grid;
+        gap: 25px;
+        margin: 45px 0;
+      }
+
+      .option {
+        background: linear-gradient(135deg, #252525, #2d2d2d);
+        border: 4px solid transparent;
+        border-radius: 25px;
+        padding: 32px 40px;
+        cursor: pointer;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        font-size: 1.4em;
+        overflow: hidden;
+        animation: optionFadeIn 0.6s ease backwards;
+      }
+
+      .option:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .option:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .option:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .option:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes optionFadeIn {
+        from {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .option::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 107, 53, 0.15),
+          transparent
+        );
+        transition: left 0.6s;
+      }
+
+      .option:hover::before {
+        left: 100%;
+      }
+
+      .option::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 215, 0, 0.1);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+      }
+
+      .option:hover::after {
+        width: 500px;
+        height: 500px;
+      }
+
+      .option:hover {
+        transform: translateX(20px) scale(1.03);
+        border-color: #ffd700;
+        box-shadow: 0 15px 50px rgba(255, 215, 0, 0.4),
+          inset 0 0 30px rgba(255, 215, 0, 0.1);
+        background: linear-gradient(135deg, #2d2d2d, #3a3a3a);
+      }
+
+      .option-label {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #ff6b35, #f7931e);
+        border-radius: 50%;
+        text-align: center;
+        line-height: 50px;
+        margin-right: 25px;
+        font-weight: bold;
+        font-size: 1.15em;
+        box-shadow: 0 5px 20px rgba(255, 107, 53, 0.5);
+        transition: all 0.4s ease;
+      }
+
+      .option:hover .option-label {
+        transform: rotate(360deg) scale(1.2);
+        box-shadow: 0 8px 30px rgba(255, 107, 53, 0.8);
+      }
+
+      .option.selected {
+        border-color: #ffd700;
+        background: linear-gradient(135deg, #3a3a3a, #454545);
+        transform: scale(1.03);
+        animation: selectedBounce 0.6s ease;
+      }
+
+      @keyframes selectedBounce {
+        0%,
+        100% {
+          transform: scale(1.03);
+        }
+        25% {
+          transform: scale(1.1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        75% {
+          transform: scale(1.08);
+        }
+      }
+
+      .option.correct {
+        border-color: #00ff88;
+        background: linear-gradient(135deg, #1a4d3a, #256d4a);
+        animation: correctCelebration 1.2s ease;
+      }
+
+      @keyframes correctCelebration {
+        0% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.8);
+        }
+        15% {
+          transform: scale(1.15) rotate(3deg);
+          box-shadow: 0 0 0 30px rgba(0, 255, 136, 0);
+        }
+        30% {
+          transform: scale(1.05) rotate(-3deg);
+          box-shadow: 0 0 0 60px rgba(0, 255, 136, 0);
+        }
+        45% {
+          transform: scale(1.12) rotate(2deg);
+        }
+        60% {
+          transform: scale(1.03) rotate(-1deg);
+        }
+        100% {
+          transform: scale(1.06) rotate(0deg);
+        }
+      }
+
+      .option.correct .option-label {
+        background: linear-gradient(135deg, #00ff88, #00d46a);
+        animation: labelCelebration 1s ease;
+      }
+
+      @keyframes labelCelebration {
+        0% {
+          transform: rotate(0deg) scale(1);
+        }
+        25% {
+          transform: rotate(180deg) scale(1.4);
+        }
+        50% {
+          transform: rotate(360deg) scale(1.2);
+        }
+        75% {
+          transform: rotate(540deg) scale(1.4);
+        }
+        100% {
+          transform: rotate(720deg) scale(1.1);
+        }
+      }
+
+      .option.incorrect {
+        border-color: #ff4444;
+        background: linear-gradient(135deg, #4d1a1a, #6d2a2a);
+        opacity: 0.5;
+        animation: incorrectVibrate 0.6s ease;
+      }
+
+      @keyframes incorrectVibrate {
+        0%,
+        100% {
+          transform: translateX(0) rotate(0deg);
+        }
+        10% {
+          transform: translateX(-15px) rotate(-2deg);
+        }
+        20% {
+          transform: translateX(15px) rotate(2deg);
+        }
+        30% {
+          transform: translateX(-15px) rotate(-2deg);
+        }
+        40% {
+          transform: translateX(15px) rotate(2deg);
+        }
+        50% {
+          transform: translateX(-10px) rotate(-1deg);
+        }
+        60% {
+          transform: translateX(10px) rotate(1deg);
+        }
+        70% {
+          transform: translateX(-8px) rotate(-1deg);
+        }
+        80% {
+          transform: translateX(8px) rotate(1deg);
+        }
+        90% {
+          transform: translateX(-5px);
+        }
+      }
+
+      .option.incorrect .option-label {
+        background: linear-gradient(135deg, #ff4444, #cc0000);
+        animation: labelShake 0.5s ease;
+      }
+
+      @keyframes labelShake {
+        0%,
+        100% {
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(-15deg);
+        }
+        75% {
+          transform: rotate(15deg);
+        }
+      }
+
+      .option.disabled {
+        pointer-events: none;
+      }
+
+      .confetti {
+        position: fixed;
+        width: 12px;
+        height: 12px;
+        background: #ffd700;
+        z-index: 10000;
+        pointer-events: none;
+      }
+
+      @keyframes confettiFall {
+        0% {
+          transform: translateY(0) rotateZ(0deg) translateX(0);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(1200px) rotateZ(1080deg)
+            translateX(var(--x-drift));
+          opacity: 0;
+        }
+      }
+
+      .star {
+        position: fixed;
+        font-size: 30px;
+        animation: starBurst 1s ease-out forwards;
+        z-index: 10000;
+        pointer-events: none;
+      }
+
+      @keyframes starBurst {
+        0% {
+          transform: translate(0, 0) scale(0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .explanation {
+        background: linear-gradient(135deg, #1a1a1a, #0f0f0f);
+        border-left: 6px solid #00ff88;
+        border-radius: 20px;
+        padding: 40px;
+        margin-top: 45px;
+        animation: explanationSlide 0.8s ease;
+        box-shadow: 0 10px 40px rgba(0, 255, 136, 0.2);
+      }
+
+      @keyframes explanationSlide {
+        from {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .explanation h3 {
+        color: #00ff88;
+        margin-bottom: 25px;
+        font-size: 2em;
+        animation: titlePulse 1s ease infinite;
+      }
+
+      @keyframes titlePulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      .explanation-text {
+        line-height: 2;
+        color: #e0e0e0;
+        font-size: 1.3em;
+      }
+
+      .navigation {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 55px;
+        gap: 30px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 22px 50px;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.4em;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: translate(-50%, -50%);
+        transition: width 0.8s, height 0.8s;
+      }
+
+      .btn:hover::before {
+        width: 400px;
+        height: 400px;
+      }
+
+      .btn::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          45deg,
+          transparent,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        transform: translateX(-100%);
+        transition: transform 0.6s;
+      }
+
+      .btn:hover::after {
+        transform: translateX(100%);
+      }
+
+      .btn:hover {
+        transform: translateY(-8px) scale(1.05);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      }
+
+      .btn:active {
+        transform: translateY(-3px) scale(1.02);
+      }
+
+      .btn-prev {
+        background: linear-gradient(135deg, #4a4a4a, #5a5a5a);
+        color: white;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      }
+
+      .btn-next {
+        background: linear-gradient(135deg, #ff6b35, #ffd700);
+        color: white;
+        box-shadow: 0 10px 30px rgba(255, 107, 53, 0.5);
+      }
+
+      .btn-submit {
+        background: linear-gradient(135deg, #00ff88, #00d46a);
+        color: #0f0f0f;
+        box-shadow: 0 10px 30px rgba(0, 255, 136, 0.5);
+        animation: submitPulse 2s ease-in-out infinite;
+      }
+
+      @keyframes submitPulse {
+        0%,
+        100% {
+          box-shadow: 0 10px 30px rgba(0, 255, 136, 0.5);
+        }
+        50% {
+          box-shadow: 0 15px 45px rgba(0, 255, 136, 0.8);
+        }
+      }
+
+      .btn:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .btn:disabled:hover {
+        transform: none;
+        box-shadow: none;
+      }
+
+      .results {
+        text-align: center;
+        padding: 90px 20px;
+        animation: resultsAppear 1.2s ease;
+      }
+
+      @keyframes resultsAppear {
+        from {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .results h2 {
+        font-size: 4.5em;
+        margin-bottom: 35px;
+        background: linear-gradient(135deg, #ff6b35 0%, #ffd700 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: glowPulse 2s ease-in-out infinite;
+      }
+
+      .score-circle {
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff6b35, #ffd700);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 60px auto;
+        font-size: 4.5em;
+        font-weight: bold;
+        box-shadow: 0 25px 70px rgba(255, 107, 53, 0.6);
+        animation: scoreReveal 1.5s ease;
+      }
+
+      @keyframes scoreReveal {
+        0% {
+          transform: scale(0) rotate(0deg);
+          opacity: 0;
+        }
+        50% {
+          transform: scale(1.2) rotate(180deg);
+        }
+        100% {
+          transform: scale(1) rotate(360deg);
+          opacity: 1;
+        }
+      }
+
+      .stats {
+        display: flex;
+        justify-content: center;
+        gap: 60px;
+        margin: 60px 0;
+        flex-wrap: wrap;
+      }
+
+      .stat {
+        background: linear-gradient(145deg, #1e1e1e, #252525);
+        padding: 40px 60px;
+        border-radius: 25px;
+        border: 3px solid #ff6b35;
+        animation: statFloat 0.8s ease;
+        animation-fill-mode: both;
+        box-shadow: 0 10px 40px rgba(255, 107, 53, 0.3);
+      }
+
+      .stat:nth-child(1) {
+        animation-delay: 0.3s;
+      }
+      .stat:nth-child(2) {
+        animation-delay: 0.5s;
+      }
+      .stat:nth-child(3) {
+        animation-delay: 0.7s;
+      }
+
+      @keyframes statFloat {
+        0% {
+          opacity: 0;
+          transform: translateY(50px) scale(0.8);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      .stat-value {
+        font-size: 4em;
+        font-weight: bold;
+        color: #ffd700;
+        text-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+        animation: valueCount 1s ease;
+      }
+
+      @keyframes valueCount {
+        from {
+          transform: scale(0);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .stat-label {
+        font-size: 1.4em;
+        color: #ccc;
+        margin-top: 18px;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 2.8em;
+        }
+        .quiz-card {
+          padding: 30px;
+        }
+        .question-text {
+          font-size: 1.8em;
+        }
+        .option {
+          font-size: 1.2em;
+        }
+        .btn {
+          padding: 18px 35px;
+          font-size: 1.2em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🚀 Advanced JavaScript Quiz</h1>
+        <p
+          style="
+            font-size: 1.5em;
+            color: #ccc;
+            animation: fadeInDown 1s ease 0.5s backwards;
+          "
+        >
+          Master JavaScript Concepts
+        </p>
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <div id="quizContainer" class="quiz-card">
+        <div class="question-header">
+          <div class="question-number" id="questionNumber">Question 1/32</div>
+          <div class="question-type" id="questionType">MCQ</div>
+        </div>
+
+        <div class="question-text" id="questionText"></div>
+        <div id="codeBlock" class="code-block hidden">
+          <pre id="codeContent"></pre>
+        </div>
+
+        <div class="options" id="optionsContainer"></div>
+
+        <div id="explanationBox" class="explanation hidden">
+          <h3>✓ Explanation</h3>
+          <div class="explanation-text" id="explanationText"></div>
+        </div>
+
+        <div class="navigation">
+          <button class="btn btn-prev" id="prevBtn">← Previous</button>
+          <button class="btn btn-next" id="nextBtn">Next →</button>
+          <button class="btn btn-submit hidden" id="submitBtn">
+            Submit Quiz ✓
+          </button>
+        </div>
+      </div>
+
+      <div id="resultsContainer" class="quiz-card hidden">
+        <div class="results">
+          <h2>🎉 Quiz Completed!</h2>
+          <div class="score-circle" id="scoreCircle">0%</div>
+          <div class="stats">
+            <div class="stat">
+              <div class="stat-value" id="correctCount">0</div>
+              <div class="stat-label">Correct</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value" id="incorrectCount">0</div>
+              <div class="stat-label">Incorrect</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value" id="totalQuestions">32</div>
+              <div class="stat-label">Total</div>
+            </div>
+          </div>
+          <button class="btn btn-next" id="restartBtn">Restart Quiz 🔄</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var questions = [
+        {
+          id: 1,
+          type: "OUTPUT",
+          question: "What will be the console output?",
+          code: "console.log(x);\nvar x = 10;\nfunction test() {\n  console.log(x);\n  var x = 20;\n}\ntest();",
+          options: [
+            "10, 20",
+            "ReferenceError",
+            "undefined, undefined",
+            "undefined, 10",
+          ],
+          correct: 2,
+          explanation:
+            "First console.log: var x is hoisted to top, but not initialized, so undefined. Inside test(), var x is hoisted within function scope, shadowing outer x, so it's also undefined at log time.",
+        },
+        {
+          id: 2,
+          type: "MCQ",
+          question: "What is the result of this closure?",
+          code: "function outer() {\n  let count = 0;\n  return function() {\n    return ++count;\n  };\n}\nconst fn1 = outer();\nconst fn2 = outer();\nconsole.log(fn1() + fn1() + fn2());",
+          options: ["3", "6", "5", "4"],
+          correct: 3,
+          explanation:
+            "fn1 first call returns 1, second call returns 2. fn2 is a separate closure with its own count, returns 1. Total: 1 + 2 + 1 = 4.",
+        },
+        {
+          id: 3,
+          type: "OUTPUT",
+          question: "Predict the output:",
+          code: "const arr = [1, 2, 3];\nconst result = arr.map(x => {\n  arr.push(x * 2);\n  return x;\n});\nconsole.log(result.length);",
+          options: ["6", "9", "3", "Infinite loop"],
+          correct: 2,
+          explanation:
+            "map iterates over the original length (3) determined before execution. Elements added during iteration (2, 4, 6) are not processed. result = [1, 2, 3].",
+        },
+        {
+          id: 4,
+          type: "MCQ",
+          question: "What happens in the Temporal Dead Zone?",
+          code: "{\n  console.log(a);\n  let a = 10;\n}",
+          options: ["undefined", "10", "null", "ReferenceError"],
+          correct: 3,
+          explanation:
+            "let variables exist in the Temporal Dead Zone from the start of the block until the declaration is reached. Accessing them before declaration throws ReferenceError.",
+        },
+        {
+          id: 5,
+          type: "OUTPUT",
+          question: "What will be logged?",
+          code: "const obj = { a: 1 };\nconst { a: b = 5, c = 10 } = obj;\nconsole.log(b, c);",
+          options: ["5, 10", "undefined, 10", "1, undefined", "1, 10"],
+          correct: 3,
+          explanation:
+            "Destructuring with renaming: 'a: b' means extract obj.a and assign to b (value is 1). c doesn't exist in obj, so it uses default value 10.",
+        },
+        {
+          id: 6,
+          type: "OUTPUT",
+          question: "Predict the result:",
+          code: "const arr = [1, 2, 3, 4, 5];\nconst [, , ...rest] = arr;\nconsole.log(rest.length);",
+          options: ["2", "4", "5", "3"],
+          correct: 3,
+          explanation:
+            "Array destructuring skips first two elements (commas). rest captures remaining elements [3, 4, 5], so length is 3.",
+        },
+        {
+          id: 7,
+          type: "MCQ",
+          question: "What does this IIFE return?",
+          code: "(function() {\n  var x = 10;\n  return (function() {\n    return x;\n  })();\n})();",
+          options: ["undefined", "ReferenceError", "null", "10"],
+          correct: 3,
+          explanation:
+            "Outer IIFE defines x = 10. Inner IIFE has closure over x and returns it. The inner IIFE is immediately invoked, returning 10.",
+        },
+        {
+          id: 8,
+          type: "OUTPUT",
+          question: "What will be the output?",
+          code: "const fn = () => arguments.length;\ntry {\n  console.log(fn(1, 2, 3));\n} catch(e) {\n  console.log('error');\n}",
+          options: ["3", "0", "undefined", "error"],
+          correct: 3,
+          explanation:
+            "Arrow functions don't have their own 'arguments' object. Accessing it causes ReferenceError, which is caught and logs 'error'.",
+        },
+        {
+          id: 9,
+          type: "OUTPUT",
+          question: "Predict the output:",
+          code: `let arr = [1, 2, 3, 4];
+const result = arr
+  .slice(1)
+  .map((x, i, a) => {
+    arr.splice(i, 1);
+    return x * 2;
+  })
+  .filter(x => x > 2);
+console.log(result, arr);`,
+          options: [
+            "[4, 6, 8], [2, 4]",
+            "[4, 6], [1, 4]",
+            "[2, 4, 6, 8], [1, 2, 3, 4]",
+            "[6, 8], [2, 3, 4]",
+          ],
+          correct: 0,
+          explanation:
+            "slice(1) creates [2, 3, 4], and map iterates over this copy while modifying the original array with splice(). Each iteration removes one element from the original array. After mapping, result = [4, 6, 8]. filter keeps all values > 2, so result remains [4, 6, 8]. Final arr = [2, 4].",
+        },
+
+        {
+          id: 10,
+          type: "MCQ",
+          question: "What's the result?",
+          code: "const obj = { x: 10 };\nconst a = obj.x;\nconst b = obj['x'];\nconst key = 'x';\nconst c = obj[key];\nconsole.log(a === b && b === c);",
+          options: ["false", "undefined", "Error", "true"],
+          correct: 3,
+          explanation:
+            "All three access methods return the same value: dot notation (obj.x), bracket notation with string (obj['x']), and bracket with variable (obj[key]) all return 10.",
+        },
+        {
+          id: 11,
+          type: "OUTPUT",
+          question: "What will be logged?",
+          code: "const obj = {};\nconst key1 = { id: 1 };\nconst key2 = { id: 2 };\nobj[key1] = 'first';\nobj[key2] = 'second';\nconsole.log(Object.keys(obj).length);",
+          options: ["0", "2", "Error", "1"],
+          correct: 3,
+          explanation:
+            "When objects are used as keys, they're converted to string '[object Object]'. Both key1 and key2 become the same string, so only one property exists.",
+        },
+        {
+          id: 12,
+          type: "OUTPUT",
+          question: "Predict the result:",
+          code: "function test() {\n  console.log(typeof fn);\n  var fn = function() {};\n  console.log(typeof fn);\n}\ntest();",
+          options: [
+            "function, function",
+            "undefined, undefined",
+            "Error",
+            "undefined, function",
+          ],
+          correct: 3,
+          explanation:
+            "var fn is hoisted but initialized to undefined. First log shows 'undefined'. After assignment, second log shows 'function'.",
+        },
+        {
+          id: 13,
+          type: "MCQ",
+          question: "What's the output?",
+          code: "const arr = [1, 2, 3];\nconst result = arr.reduce((acc, val) => {\n  acc.push(val * 2);\n  return acc;\n}, []);\nconsole.log(result[2]);",
+          options: ["3", "undefined", "Error", "6"],
+          correct: 3,
+          explanation:
+            "reduce builds array [2, 4, 6] by pushing val * 2 for each element. Element at index 2 is 6.",
+        },
+        {
+          id: 14,
+          type: "OUTPUT",
+          question: "What will be the output?",
+          code: "const sym1 = Symbol('test');\nconst sym2 = Symbol('test');\nconst obj = { [sym1]: 'value1' };\nconsole.log(obj[sym2]);",
+          options: ["'value1'", "Symbol(test)", "Error", "undefined"],
+          correct: 3,
+          explanation:
+            "Every Symbol() call creates a unique symbol, even with same description. sym1 ≠ sym2, so obj[sym2] doesn't exist and returns undefined.",
+        },
+        {
+          id: 15,
+          type: "OUTPUT",
+          question: "Predict the output:",
+          code: "const arr = [1, 2, 3];\nconst [...spread] = arr;\narr.push(4);\nconsole.log(spread.length);",
+          options: ["4", "undefined", "Error", "3"],
+          correct: 3,
+          explanation:
+            "Spread operator creates a shallow copy with original 3 elements. Modifications to arr don't affect spread. Length remains 3.",
+        },
+        {
+          id: 16,
+          type: "MCQ",
+          question: "What's the result?",
+          code: "const obj1 = { a: 1, b: 2 };\nconst obj2 = { b: 3, c: 4 };\nconst merged = { ...obj1, ...obj2 };\nconsole.log(merged.b);",
+          options: ["2", "undefined", "[2, 3]", "3"],
+          correct: 3,
+          explanation:
+            "Spread operator merges objects. Properties from obj2 overwrite those from obj1. merged.b = 3 (from obj2).",
+        },
+        {
+          id: 17,
+          type: "OUTPUT",
+          question: "What will be logged?",
+          code: "function foo() {\n  return {\n    bar: function() { return this; }\n  };\n}\nconst obj = foo();\nconsole.log(obj.bar() === obj);",
+          options: ["false", "undefined", "Error", "true"],
+          correct: 3,
+          explanation:
+            "obj.bar() is called as a method of obj. In regular functions, 'this' refers to the object that called the method, so this === obj returns true.",
+        },
+        {
+          id: 18,
+          type: "OUTPUT",
+          question: "Predict the output:",
+          code: "const arr = [1, [2, [3, [4]]]];  \nconst flat = arr.flat(2);\nconsole.log(flat[3]);",
+          options: ["3", "[3, [4]]", "4", "[4]"],
+          correct: 3,
+          explanation:
+            "flat(2) flattens 2 levels deep: [1, [2, [3, [4]]]] → [1, 2, [3, [4]]] → [1, 2, 3, [4]]. Element at index 3 is [4].",
+        },
+        {
+          id: 19,
+          type: "MCQ",
+          question: "What's the output?",
+          code: "const fn = function named() {\n  console.log(typeof named);\n};\nfn();\nconsole.log(typeof named);",
+          options: [
+            "function, function",
+            "undefined, undefined",
+            "Error, Error",
+            "function, undefined",
+          ],
+          correct: 3,
+          explanation:
+            "Named function expressions: the name 'named' is only accessible inside the function itself (logs 'function'). Outside, 'named' doesn't exist (logs 'undefined').",
+        },
+        {
+          id: 20,
+          type: "OUTPUT",
+          question: "What will be the result?",
+          code: "const arr = [1, 2, 3, 4];\nconst result = arr.filter((x, i) => i % 2 === 0).map(x => x * 2);\nconsole.log(result);",
+          options: ["[2, 4]", "[4, 8]", "[1, 3]", "[2, 6]"],
+          correct: 3,
+          explanation:
+            "filter keeps elements at even indices (0, 2): [1, 3]. Then map doubles each: [1*2, 3*2] = [2, 6].",
+        },
+        {
+          id: 21,
+          type: "OUTPUT",
+          question: "Predict the output:",
+          code: "let x = 1;\nfunction test() {\n  if (true) {\n    let x = 2;\n    console.log(x);\n  }\n  console.log(x);\n}\ntest();",
+          options: ["2, 2", "1, 1", "ReferenceError", "2, 1"],
+          correct: 3,
+          explanation:
+            "Block-scoped let creates a new variable x inside the if block (logs 2). Outside the block, function accesses outer x from parent scope (logs 1).",
+        },
+        {
+          id: 22,
+          type: "OUTPUT",
+          question: "Predict the output:",
+          code: "const data = [10, 20, 30, 40];\nconst result = data\n  .filter(x => x > 15)\n  .map((x, i, arr) => {\n    if (i === 0) arr.push(100);\n    return x / 10;\n  })\n  .reverse();\nconsole.log(result, data.length);",
+          options: [
+            "[4, 3, 2], 5",
+            "[4, 3, 2, 10], 4",
+            "[4, 3, 2], 4",
+            "[4, 3, 2, 10], 5",
+          ],
+          correct: 2,
+          explanation:
+            "filter() creates [20, 30, 40]. During map, on the first iteration (x=20), arr.push(100) extends the mapped array, but map doesn't iterate over the new element. The map output is [2, 3, 4], which becomes [4, 3, 2] after reverse(). The original data array remains unchanged, so data.length = 4.",
+        },
+
+        {
+          id: 23,
+          type: "OUTPUT",
+          question: "What will be logged?",
+          code: "console.log(NaN === NaN);\nconsole.log(Object.is(NaN, NaN));\nconsole.log(isNaN(NaN));",
+          options: [
+            "true, true, true",
+            "false, false, true",
+            "true, false, true",
+            "false, true, true",
+          ],
+          correct: 3,
+          explanation:
+            "NaN is not equal to itself using === (false). Object.is() correctly identifies NaN === NaN as true. isNaN(NaN) returns true.",
+        },
+        {
+          id: 24,
+          type: "OUTPUT",
+          question: "Predict the output:",
+          code: "const arr = [1, 2, 3];\narr.length = 5;\nconsole.log(arr[4]);",
+          options: ["null", "0", "Error", "undefined"],
+          correct: 3,
+          explanation:
+            "Setting length to 5 creates 2 empty slots. Accessing empty slots returns undefined.",
+        },
+        {
+          id: 25,
+          type: "MCQ",
+          question: "What's the result?",
+          code: "function sum(...args) {\n  return args.reduce((a, b) => a + b);\n}\nconsole.log(sum(1, 2, 3, 4));",
+          options: ["24", "undefined", "Error", "10"],
+          correct: 3,
+          explanation:
+            "Rest parameter (...args) collects all arguments into an array [1, 2, 3, 4]. reduce sums them: 1 + 2 + 3 + 4 = 10.",
+        },
+        {
+          id: 26,
+          type: "OUTPUT",
+          question: "What will be the output?",
+          code: "const obj = { a: 1 };\nObject.freeze(obj);\nobj.a = 2;\nobj.b = 3;\nconsole.log(obj.a, obj.b);",
+          options: ["2, 3", "1, 3", "Error", "1, undefined"],
+          correct: 3,
+          explanation:
+            "Object.freeze makes object immutable. obj.a = 2 fails silently (remains 1). obj.b = 3 also fails (b is not added, returns undefined).",
+        },
+        {
+          id: 27,
+          type: "OUTPUT",
+          question: "Predict the result:",
+          code: "const fn = (a, b = a * 2, c = b + 1) => c;\nconsole.log(fn(5));",
+          options: ["10", "6", "undefined", "11"],
+          correct: 3,
+          explanation:
+            "Default parameters evaluate left to right: a = 5, b = 5 * 2 = 10, c = 10 + 1 = 11. Returns 11.",
+        },
+        {
+          id: 28,
+          type: "MCQ",
+          question: "What's the output?",
+          code: "const arr = [10, 20, 30];\nconst [a, ...rest] = arr;\nconst [b] = rest;\nconsole.log(a + b);",
+          options: ["50", "60", "undefined", "30"],
+          correct: 3,
+          explanation:
+            "Destructuring: a = 10, rest = [20, 30]. Then b = 20 (first element of rest). Result: 10 + 20 = 30.",
+        },
+        {
+          id: 29,
+          type: "OUTPUT",
+          question: "What will be logged?",
+          code: "const obj = { x: 1, y: 2 };\nconst { x, ...rest } = obj;\nrest.x = 10;\nconsole.log(obj.x);",
+          options: ["10", "undefined", "Error", "1"],
+          correct: 3,
+          explanation:
+            "Rest operator creates a new object with remaining properties (rest = {y: 2}). Modifying rest doesn't affect original obj. obj.x remains 1.",
+        },
+        {
+          id: 30,
+          type: "OUTPUT",
+          question: "Predict the output:",
+          code: "console.log(isFinite(Infinity));\nconsole.log(isFinite(100));\nconsole.log(isFinite('100'));\nconsole.log(isFinite(NaN));",
+          options: [
+            "true, true, true, false",
+            "false, false, true, false",
+            "false, true, false, false",
+            "false, true, true, false",
+          ],
+          correct: 3,
+          explanation:
+            "isFinite returns false for Infinity and NaN. Returns true for finite numbers. Numeric strings are coerced to numbers, so '100' returns true.",
+        },
+        {
+          id: 31,
+          type: "OUTPUT",
+          question: "Predict the output:",
+          code: "function change(...nums) {\n  nums[0] = 99;\n  return nums;\n}\n\nconst arr = [1, 2, 3];\nconst newArr = [...arr];\nchange(...arr);\nconsole.log(arr[0], newArr[0]);",
+          options: ["99 99", "99 1", "1 1", "1 99"],
+          correct: 2,
+          explanation:
+            "The spread operator creates copies when passed as arguments, so the original 'arr' is not modified. 'change' mutates its local copy of parameters. 'newArr' was also a shallow copy created before the mutation.",
+        },
+        {
+          id: 32,
+          type: "OUTPUT",
+          question: "Predict the output:",
+          code: "const arr = [1, , 3, undefined];\nconst mapped = arr.map(x => x * 2);\nconsole.log(mapped.length, mapped[1]);",
+          options: ["4 undefined", "3 undefined", "4 NaN", "3 NaN"],
+          correct: 0,
+          explanation:
+            "Sparse arrays preserve holes during map/filter. The empty slot is skipped but its index is retained, so the resulting array has the same length (4). The hole remains a hole, and accessing it gives 'undefined'.",
+        },
+      ];
+
+      // Shuffle array function
+      function shuffleArray(array) {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+      }
+
+      // Shuffle questions on load
+      const uniqueQuestions = Array.from(
+        new Set(questions.map((q) => JSON.stringify(q)))
+      ).map((q) => JSON.parse(q));
+      questions = shuffleArray(uniqueQuestions);
+
+      var currentQuestion = 0;
+      var userAnswers = [];
+      var score = 0;
+      var questionShuffles = {}; // Store shuffled options for each question
+
+      function createConfetti(x, y) {
+        const colors = [
+          "#ffd700",
+          "#ff6b35",
+          "#f7931e",
+          "#00ff88",
+          "#00d4a4",
+          "#ffff00",
+        ];
+        for (let i = 0; i < 50; i++) {
+          const confetti = document.createElement("div");
+          confetti.className = "confetti";
+          const randomColor = colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.left = x + (Math.random() - 0.5) * 150 + "px";
+          confetti.style.top = y + "px";
+          confetti.style.background = randomColor;
+          confetti.style.setProperty(
+            "--x-drift",
+            (Math.random() - 0.5) * 400 + "px"
+          );
+          confetti.style.animation = `confettiFall ${
+            2 + Math.random() * 2
+          }s linear forwards`;
+          confetti.style.animationDelay = Math.random() * 0.3 + "s";
+          confetti.style.borderRadius = Math.random() > 0.5 ? "50%" : "0";
+          document.body.appendChild(confetti);
+
+          setTimeout(() => confetti.remove(), 5000);
+        }
+      }
+
+      function createStarBurst(x, y) {
+        const stars = ["⭐", "✨", "💫", "🌟", "⚡"];
+        for (let i = 0; i < 12; i++) {
+          const star = document.createElement("div");
+          star.className = "star";
+          star.textContent = stars[Math.floor(Math.random() * stars.length)];
+          star.style.left = x + "px";
+          star.style.top = y + "px";
+          const angle = (i / 12) * Math.PI * 2;
+          const distance = 100 + Math.random() * 100;
+          star.style.setProperty("--tx", Math.cos(angle) * distance + "px");
+          star.style.setProperty("--ty", Math.sin(angle) * distance + "px");
+          document.body.appendChild(star);
+
+          setTimeout(() => star.remove(), 1000);
+        }
+      }
+
+      function loadQuestion() {
+        var q = questions[currentQuestion];
+
+        // Only shuffle options if not already shuffled for this question
+        if (!questionShuffles[currentQuestion]) {
+          var shuffledOptions = q.options.map((opt, idx) => ({
+            text: opt,
+            originalIndex: idx,
+          }));
+          shuffledOptions = shuffleArray(shuffledOptions);
+
+          // Store the mapping permanently for this question
+          questionShuffles[currentQuestion] = {
+            mapping: shuffledOptions.map((opt) => opt.originalIndex),
+            options: shuffledOptions.map((opt) => opt.text),
+          };
+        }
+
+        // Use stored shuffle
+        var shuffle = questionShuffles[currentQuestion];
+
+        document.getElementById("questionNumber").textContent =
+          "Question " + (currentQuestion + 1) + "/32";
+        document.getElementById("questionType").textContent = q.type;
+        document.getElementById("questionText").textContent = q.question;
+
+        var progress = ((currentQuestion + 1) / questions.length) * 100;
+        document.getElementById("progressFill").style.width = progress + "%";
+
+        if (q.code) {
+          document.getElementById("codeBlock").classList.remove("hidden");
+          document.getElementById("codeContent").textContent = q.code;
+        } else {
+          document.getElementById("codeBlock").classList.add("hidden");
+        }
+
+        var optionsContainer = document.getElementById("optionsContainer");
+        optionsContainer.innerHTML = "";
+        var labels = ["A", "B", "C", "D"];
+
+        for (var i = 0; i < shuffle.options.length; i++) {
+          var optionDiv = document.createElement("div");
+          optionDiv.className = "option";
+          optionDiv.innerHTML =
+            '<span class="option-label">' +
+            labels[i] +
+            "</span><span>" +
+            shuffle.options[i] +
+            "</span>";
+          optionDiv.setAttribute("data-index", i);
+          optionDiv.onclick = function () {
+            selectOption(parseInt(this.getAttribute("data-index")));
+          };
+
+          if (userAnswers[currentQuestion] !== undefined) {
+            optionDiv.classList.add("disabled");
+            if (i === userAnswers[currentQuestion]) {
+              optionDiv.classList.add("selected");
+              if (shuffle.mapping[i] === q.correct) {
+                optionDiv.classList.add("correct");
+              } else {
+                optionDiv.classList.add("incorrect");
+              }
+            }
+            if (shuffle.mapping[i] === q.correct) {
+              optionDiv.classList.add("correct");
+            }
+          }
+
+          optionsContainer.appendChild(optionDiv);
+        }
+
+        if (userAnswers[currentQuestion] !== undefined) {
+          document.getElementById("explanationBox").classList.remove("hidden");
+          document.getElementById("explanationText").textContent =
+            q.explanation;
+        } else {
+          document.getElementById("explanationBox").classList.add("hidden");
+        }
+
+        document.getElementById("prevBtn").disabled = currentQuestion === 0;
+
+        if (currentQuestion === questions.length - 1) {
+          document.getElementById("nextBtn").classList.add("hidden");
+          document.getElementById("submitBtn").classList.remove("hidden");
+        } else {
+          document.getElementById("nextBtn").classList.remove("hidden");
+          document.getElementById("submitBtn").classList.add("hidden");
+        }
+      }
+
+      function selectOption(index) {
+        if (userAnswers[currentQuestion] !== undefined) return;
+
+        userAnswers[currentQuestion] = index;
+        var q = questions[currentQuestion];
+        var shuffle = questionShuffles[currentQuestion];
+
+        // Check if selected option maps to correct answer
+        if (shuffle.mapping[index] === q.correct) {
+          score++;
+          // Trigger amazing celebration animations
+          const optionElement = document.querySelector(
+            '[data-index="' + index + '"]'
+          );
+          const rect = optionElement.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+
+          createConfetti(centerX, centerY);
+          createStarBurst(centerX, centerY);
+        }
+
+        // Re-render without shuffling again
+        loadQuestion();
+      }
+
+      function nextQuestion() {
+        if (currentQuestion < questions.length - 1) {
+          currentQuestion++;
+          loadQuestion();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }
+
+      function prevQuestion() {
+        if (currentQuestion > 0) {
+          currentQuestion--;
+          loadQuestion();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }
+
+      function showResults() {
+        document.getElementById("quizContainer").classList.add("hidden");
+        document.getElementById("resultsContainer").classList.remove("hidden");
+
+        var percentage = Math.round((score / questions.length) * 100);
+        var incorrect = questions.length - score;
+
+        document.getElementById("scoreCircle").textContent = percentage + "%";
+        document.getElementById("correctCount").textContent = score;
+        document.getElementById("incorrectCount").textContent = incorrect;
+
+        // Celebration confetti on results page
+        for (let i = 0; i < 100; i++) {
+          setTimeout(() => {
+            createConfetti(Math.random() * window.innerWidth, 0);
+          }, i * 50);
+        }
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function restartQuiz() {
+        questions = shuffleArray(questions);
+        currentQuestion = 0;
+        userAnswers = [];
+        score = 0;
+
+        document.getElementById("quizContainer").classList.remove("hidden");
+        document.getElementById("resultsContainer").classList.add("hidden");
+
+        loadQuestion();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      document
+        .getElementById("prevBtn")
+        .addEventListener("click", prevQuestion);
+      document
+        .getElementById("nextBtn")
+        .addEventListener("click", nextQuestion);
+      document
+        .getElementById("submitBtn")
+        .addEventListener("click", showResults);
+      document
+        .getElementById("restartBtn")
+        .addEventListener("click", restartQuiz);
+
+      loadQuestion();
+    </script>
+  </body>
+</html>
