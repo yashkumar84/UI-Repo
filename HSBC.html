@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSBC Interview Mastery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            overflow-x: hidden;
+            color: #2d3748;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero-header {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            margin-bottom: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            animation: slideInDown 1s ease-out;
+        }
+
+        .hero-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-header h1 {
+            font-size: 4em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            position: relative;
+            animation: textGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes textGlow {
+            0%, 100% { text-shadow: 0 0 20px rgba(102, 126, 234, 0.5); }
+            50% { text-shadow: 0 0 40px rgba(118, 75, 162, 0.8); }
+        }
+
+        .hero-header p {
+            font-size: 1.5em;
+            color: #4a5568;
+            font-weight: 600;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .nav-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .nav-card:hover::before {
+            left: 100%;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-card.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .nav-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .nav-card h3 {
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.5s ease;
+            animation: floatIn 1s ease;
+        }
+
+        @keyframes floatIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 70px rgba(102, 126, 234, 0.3);
+        }
+
+        .section-title {
+            font-size: 2.5em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+            animation: expandWidth 2s ease-in-out infinite;
+        }
+
+        @keyframes expandWidth {
+            0%, 100% { width: 100px; }
+            50% { width: 200px; }
+        }
+
+        .code-container {
+            background: #1e1e1e;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            margin: 25px 0;
+            transition: all 0.4s ease;
+            animation: slideInRight 0.8s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .code-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.4);
+        }
+
+        .code-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .code-header .language {
+            color: white;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        .code-header .complexity {
+            display: flex;
+            gap: 15px;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            color: white;
+            font-weight: 600;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .code-block {
+            padding: 25px;
+            color: #d4d4d4;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+
+        .keyword { color: #569cd6; font-weight: bold; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; font-style: italic; }
+        .class-name { color: #4ec9b0; }
+        .function { color: #dcdcaa; }
+
+        .visual-demo {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 30px 0;
+            text-align: center;
+            border: 2px dashed #667eea;
+        }
+
+        .array-visual {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .array-box {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            font-size: 1.8em;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .array-box::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        .array-box:hover::before {
+            width: 200px;
+            height: 200px;
+        }
+
+        .array-box:hover {
+            transform: translateY(-15px) rotate(5deg) scale(1.1);
+        }
+
+        .array-box.highlight {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            animation: highlightPop 0.6s ease;
+        }
+
+        @keyframes highlightPop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3) rotate(360deg); }
+            100% { transform: scale(1); }
+        }
+
+        .linked-list-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .node {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 35px;
+            border-radius: 15px;
+            font-size: 1.5em;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            position: relative;
+            animation: nodeFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes nodeFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .node::after {
+            content: '→';
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2em;
+            color: white;
+            animation: arrowSlide 1.5s ease-in-out infinite;
+        }
+
+        @keyframes arrowSlide {
+            0%, 100% { right: -30px; }
+            50% { right: -35px; }
+        }
+
+        .node:last-child::after {
+            content: '';
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(240, 147, 251, 0.4);
+            transition: all 0.3s ease;
+            margin: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .action-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(240, 147, 251, 0.6);
+        }
+
+        .action-btn:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 35px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .stat-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 25px 60px rgba(102, 126, 234, 0.6);
+        }
+
+        .stat-number {
+            font-size: 4em;
+            font-weight: 800;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .challenge-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 25px 0;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: all 0.4s ease;
+        }
+
+        .challenge-card:hover {
+            transform: translateX(10px);
+            border-left-width: 10px;
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .challenge-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .leetcode-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #ffa500 0%, #ff6347 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 165, 0, 0.3);
+        }
+
+        .leetcode-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 165, 0, 0.5);
+        }
+
+        .hidden-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .hidden-content.show {
+            max-height: 2000px;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+            position: relative;
+            animation: slideInLeft 0.8s ease;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .tip-box::before {
+            content: '💡';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            font-size: 2em;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .tip-box h4 {
+            color: #667eea;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+
+        .flowchart {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .flow-step {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 35px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 1.2em;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            animation: stepPulse 2s ease-in-out infinite;
+            position: relative;
+        }
+
+        @keyframes stepPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .flow-arrow {
+            font-size: 2.5em;
+            color: white;
+            animation: arrowBounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes arrowBounce {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .comparison-item {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .comparison-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
+        }
+
+        .comparison-item h4 {
+            color: #667eea;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-header h1 {
+                font-size: 2.5em;
+            }
+
+            .array-box {
+                width: 60px;
+                height: 60px;
+                font-size: 1.4em;
+            }
+
+            .section-title {
+                font-size: 2em;
+            }
+        }
+
+        .progress-visual {
+            background: rgba(255, 255, 255, 0.2);
+            height: 40px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 15px 0;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            transition: width 2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: progressShine 2s infinite;
+        }
+
+        @keyframes progressShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .rounds-timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .rounds-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: all 0.4s ease;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .timeline-dot {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes dotPulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(102, 126, 234, 1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .rounds-timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                align-items: flex-start;
+                padding-left: 50px;
+            }
+
+            .timeline-content {
+                width: 100%;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Header -->
+        <div class="hero-header">
+            <h1>🚀 HSBC Interview Mastery</h1>
+            <p>Graduate Programme - Trainee Software Engineer</p>
+        </div>
+
+        <!-- Navigation Grid -->
+        <div class="nav-grid">
+            <div class="nav-card active" onclick="showSection('overview')">
+                <span class="nav-icon">📊</span>
+                <h3>Overview</h3>
+            </div>
+            <div class="nav-card" onclick="showSection('twosum')">
+                <span class="nav-icon">🎯</span>
+                <h3>Two Sum</h3>
+            </div>
+            <div class="nav-card" onclick="showSection('linkedlist')">
+                <span class="nav-icon">🔗</span>
+                <h3>Reverse List</h3>
+            </div>
+            <div class="nav-card" onclick="showSection('rapidfire')">
+                <span class="nav-icon">⚡</span>
+                <h3>Rapid Fire</h3>
+            </div>
+            <div class="nav-card" onclick="showSection('behavioral')">
+                <span class="nav-icon">💼</span>
+                <h3>Behavioral</h3>
+            </div>
+            <div class="nav-card" onclick="showSection('bonus')">
+                <span class="nav-icon">🎁</span>
+                <h3>Bonus Tips</h3>
+            </div>
+        </div>
+
+        <!-- OVERVIEW SECTION -->
+        <div id="overview" class="content-section active">
+            <div class="glass-card">
+                <h2 class="section-title">Success Weightage</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">60%</div>
+                        <h3>DSA Skills</h3>
+                        <p>Core technical ability</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">25%</div>
+                        <h3>Projects</h3>
+                        <p>Real-world experience</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">15%</div>
+                        <h3>Behavioral</h3>
+                        <p>Cultural fit & values</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <h2 class="section-title">Most Asked Topics</h2>
+                <div style="padding: 20px;">
+                    <div style="margin: 20px 0;">
+                        <h4 style="color: #667eea; margin-bottom: 10px;">Arrays & Hashing</h4>
+                        <div class="progress-visual">
+                            <div class="progress-fill" style="width: 90%;">90%</div>
+                        </div>
+                    </div>
+                    <div style="margin: 20px 0;">
+                        <h4 style="color: #764ba2; margin-bottom: 10px;">Linked Lists</h4>
+                        <div class="progress-visual">
+                            <div class="progress-fill" style="width: 75%;">75%</div>
+                        </div>
+                    </div>
+                    <div style="margin: 20px 0;">
+                        <h4 style="color: #f093fb; margin-bottom: 10px;">Strings</h4>
+                        <div class="progress-visual">
+                            <div class="progress-fill" style="width: 65%;">65%</div>
+                        </div>
+                    </div>
+                    <div style="margin: 20px 0;">
+                        <h4 style="color: #667eea; margin-bottom: 10px;">Recursion & DP</h4>
+                        <div class="progress-visual">
+                            <div class="progress-fill" style="width: 50%;">50%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TWO SUM SECTION -->
+        <div id="twosum" class="content-section">
+            <div class="glass-card">
+                <h2 class="section-title">Problem 1: Two Sum</h2>
+                
+                <div class="challenge-card">
+                    <div class="challenge-title">Q: "Why HSBC?"</div>
+                    <button class="action-btn" onclick="toggleContent('behav4')">Show Strong Answer</button>
+                    <div id="behav4" class="hidden-content">
+                        <div class="tip-box">
+                            <h4>Well-Researched Response</h4>
+                            <p><strong>Global Leadership:</strong> 64 countries - global fintech exposure</p>
+                            <p><strong>Tech Stack:</strong> Cloud adoption (AWS/Azure), AI/ML in fraud detection</p>
+                            <p><strong>Learning:</strong> Structured graduate program with mentorship</p>
+                            <p><strong>Recent Initiatives:</strong> Digital banking transformation, API banking</p>
+                            <p><strong>Values:</strong> "Succeeding Together" aligns with my collaborative approach</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BONUS SECTION -->
+        <div id="bonus" class="content-section">
+            <div class="glass-card">
+                <h2 class="section-title">🎁 Bonus: Beyond PDF Topics</h2>
+
+                <div class="challenge-card">
+                    <div class="challenge-title">🔥 LRU Cache Implementation</div>
+                    <p><strong>Concept:</strong> Least Recently Used cache - HashMap + Doubly Linked List</p>
+                    <p><strong>Why Important:</strong> System design interviews mein frequently puchha jata hai</p>
+                    <a href="https://leetcode.com/problems/lru-cache/" target="_blank" class="leetcode-link">
+                        🔗 LeetCode Link
+                    </a>
+                    <button class="action-btn" onclick="toggleContent('lru')">Show Approach</button>
+                    <div id="lru" class="hidden-content">
+                        <div class="tip-box">
+                            <h4>Design Strategy</h4>
+                            <p><strong>HashMap:</strong> O(1) access ke liye - key to node mapping</p>
+                            <p><strong>DLL:</strong> O(1) insertion/deletion - LRU tracking</p>
+                            <p><strong>Operations:</strong> Get aur Put dono O(1) time mein</p>
+                            <p><strong>Application:</strong> Browser cache, database query cache</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="challenge-title">🔥 Median of Two Sorted Arrays</div>
+                    <p><strong>Concept:</strong> Do sorted arrays ka median find karo in O(log(min(m,n)))</p>
+                    <p><strong>Difficulty:</strong> Hard level - but HSBC senior roles mein aa sakta hai</p>
+                    <a href="https://leetcode.com/problems/median-of-two-sorted-arrays/" target="_blank" class="leetcode-link">
+                        🔗 LeetCode Link
+                    </a>
+                    <button class="action-btn" onclick="toggleContent('median')">Show Approach</button>
+                    <div id="median" class="hidden-content">
+                        <div class="tip-box">
+                            <h4>Binary Search Magic</h4>
+                            <p><strong>Key Idea:</strong> Binary search on smaller array</p>
+                            <p><strong>Partition:</strong> Dono arrays ko aisa divide karo ki left half elements right half se chote hon</p>
+                            <p><strong>Edge Cases:</strong> Empty array, single element - handle carefully</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="challenge-title">🔥 Rate Limiter Design</div>
+                    <p><strong>System Design Question:</strong> API rate limiting kaise implement karoge?</p>
+                    <p><strong>Real-world:</strong> Every production system mein use hota hai</p>
+                    <button class="action-btn" onclick="toggleContent('ratelimit')">Show Approaches</button>
+                    <div id="ratelimit" class="hidden-content">
+                        <div class="comparison-grid">
+                            <div class="comparison-item">
+                                <h4>Token Bucket</h4>
+                                <p>Fixed rate pe tokens generate, request pe consume</p>
+                                <p><strong>Use:</strong> AWS API Gateway</p>
+                            </div>
+                            <div class="comparison-item">
+                                <h4>Sliding Window</h4>
+                                <p>Time window track karo with timestamps</p>
+                                <p><strong>Use:</strong> More accurate limiting</p>
+                            </div>
+                            <div class="comparison-item">
+                                <h4>Fixed Window Counter</h4>
+                                <p>Simple counter per time window</p>
+                                <p><strong>Use:</strong> Basic rate limiting</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="challenge-title">🔥 Database Indexing Deep Dive</div>
+                    <p><strong>Interview Focus:</strong> When & Why use indexing?</p>
+                    <button class="action-btn" onclick="toggleContent('indexing')">Show Key Points</button>
+                    <div id="indexing" class="hidden-content">
+                        <div class="tip-box">
+                            <h4>Indexing Strategy</h4>
+                            <p><strong>When to Use:</strong> Frequently queried columns (WHERE, JOIN, ORDER BY)</p>
+                            <p><strong>Trade-off:</strong> ✅ Fast reads | ❌ Slower writes</p>
+                            <p><strong>Types:</strong> B-Tree (default), Hash, Bitmap, Full-text</p>
+                            <p><strong>Example:</strong> Email field pe index - login queries fast ho jayengi</p>
+                            <p><strong>Don't Index:</strong> Small tables, frequently updated columns</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="challenge-title">🔥 Microservices vs Monolith</div>
+                    <p><strong>System Design Favorite:</strong> HSBC actively microservices use karta hai</p>
+                    <button class="action-btn" onclick="toggleContent('microservices')">Show Comparison</button>
+                    <div id="microservices" class="hidden-content">
+                        <div class="comparison-grid">
+                            <div class="comparison-item">
+                                <h4>Monolithic ✅</h4>
+                                <p>Simple deployment, easier debugging</p>
+                                <p>Best for: Small teams, MVP</p>
+                            </div>
+                            <div class="comparison-item">
+                                <h4>Monolithic ❌</h4>
+                                <p>Scaling difficult, single point of failure</p>
+                                <p>Technology lock-in</p>
+                            </div>
+                            <div class="comparison-item">
+                                <h4>Microservices ✅</h4>
+                                <p>Independent scaling, fault isolation</p>
+                                <p>Best for: Large systems, multiple teams</p>
+                            </div>
+                            <div class="comparison-item">
+                                <h4>Microservices ❌</h4>
+                                <p>Complex deployment, network latency</p>
+                                <p>Distributed debugging hard</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <h2 class="section-title">🎯 Interview Day Checklist</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">🧠</div>
+                        <h3>Think Aloud</h3>
+                        <p>Interviewer ko thought process dikhao - silence mat rakho!</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">📊</div>
+                        <h3>Complexity Analysis</h3>
+                        <p>Har solution ke saath time & space complexity discuss karo</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">⚠️</div>
+                        <h3>Edge Cases</h3>
+                        <p>Empty input, null, negative numbers - mention karna mat bhulo</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">🔄</div>
+                        <h3>Optimize</h3>
+                        <p>Brute force pehle batao, phir optimized approach pe jao</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <h2 class="section-title">⚡ Time Complexity Cheat Sheet</h2>
+                <div class="comparison-grid">
+                    <div class="comparison-item">
+                        <h4>O(1) - Constant</h4>
+                        <p>HashMap lookup, Array access</p>
+                        <p style="color: #10b981; font-weight: 700;">Excellent! ✨</p>
+                    </div>
+                    <div class="comparison-item">
+                        <h4>O(log n) - Logarithmic</h4>
+                        <p>Binary search, Balanced BST</p>
+                        <p style="color: #10b981; font-weight: 700;">Great! 🎯</p>
+                    </div>
+                    <div class="comparison-item">
+                        <h4>O(n) - Linear</h4>
+                        <p>Single loop, Linear search</p>
+                        <p style="color: #3b82f6; font-weight: 700;">Good ✓</p>
+                    </div>
+                    <div class="comparison-item">
+                        <h4>O(n log n)</h4>
+                        <p>Merge sort, Quick sort</p>
+                        <p style="color: #3b82f6; font-weight: 700;">Acceptable ✓</p>
+                    </div>
+                    <div class="comparison-item">
+                        <h4>O(n²) - Quadratic</h4>
+                        <p>Nested loops, Bubble sort</p>
+                        <p style="color: #f59e0b; font-weight: 700;">Avoid if possible ⚠️</p>
+                    </div>
+                    <div class="comparison-item">
+                        <h4>O(2ⁿ) - Exponential</h4>
+                        <p>Recursive fibonacci (naive)</p>
+                        <p style="color: #ef4444; font-weight: 700;">Unacceptable! ❌</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <h2 class="section-title">💪 Final Success Tips</h2>
+                <div class="comparison-grid">
+                    <div class="comparison-item">
+                        <h4>📚 Practice Daily</h4>
+                        <p>Minimum 2 DSA problems daily solve karo</p>
+                        <p>Consistency > Intensity</p>
+                    </div>
+                    <div class="comparison-item">
+                        <h4>🎭 Mock Interviews</h4>
+                        <p>Friends ke saath practice karo</p>
+                        <p>Communication skills improve hogi</p>
+                    </div>
+                    <div class="comparison-item">
+                        <h4>🔍 Company Research</h4>
+                        <p>HSBC website, LinkedIn, recent news padho</p>
+                        <p>Tech initiatives mention karo</p>
+                    </div>
+                    <div class="comparison-item">
+                        <h4>😌 Stay Calm</h4>
+                        <p>Interview se 1 din pehle relax karo</p>
+                        <p>Fresh mind performs better</p>
+                    </div>
+                    <div class="comparison-item">
+                        <h4>📝 Code Quality</h4>
+                        <p>Meaningful variable names use karo</p>
+                        <p>Clean code + comments likhna</p>
+                    </div>
+                    <div class="comparison-item">
+                        <h4>❓ Ask Questions</h4>
+                        <p>Requirements unclear hain toh puchho</p>
+                        <p>Shows thoroughness!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card" style="text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <h2 style="font-size: 3em; margin-bottom: 20px;">🚀 You've Got This!</h2>
+                <p style="font-size: 1.5em; margin-bottom: 30px;">Preparation + Confidence = Success</p>
+                <div style="font-size: 1.2em; line-height: 2;">
+                    <p>✅ DSA patterns samajh gaye</p>
+                    <p>✅ Behavioral answers ready hain</p>
+                    <p>✅ HSBC values align kar liye</p>
+                    <p>✅ Bonus topics bhi cover ho gaye</p>
+                </div>
+                <p style="font-size: 2em; margin-top: 30px; font-weight: 800;">All the Best! 💪</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Update nav cards
+            const navCards = document.querySelectorAll('.nav-card');
+            navCards.forEach(card => {
+                card.classList.remove('active');
+            });
+            event.target.closest('.nav-card').classList.add('active');
+
+            // Smooth scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleContent(contentId) {
+            const content = document.getElementById(contentId);
+            content.classList.toggle('show');
+        }
+
+        function animateTwoSum() {
+            const arr0 = document.getElementById('arr0');
+            const arr1 = document.getElementById('arr1');
+            const arr2 = document.getElementById('arr2');
+            const arr3 = document.getElementById('arr3');
+            
+            // Reset
+            [arr0, arr1, arr2, arr3].forEach(el => el.classList.remove('highlight'));
+            
+            // Animate
+            setTimeout(() => {
+                arr0.classList.add('highlight');
+            }, 300);
+            
+            setTimeout(() => {
+                arr1.classList.add('highlight');
+            }, 800);
+            
+            setTimeout(() => {
+                alert('✨ Found! Index 0 (value: 2) + Index 1 (value: 7) = 9\n\nHashMap ne complement 7 instantly dhund liya! 🎯');
+            }, 1300);
+        }
+
+        function showReversed() {
+            const reversedDiv = document.getElementById('reversed-visual');
+            if (reversedDiv.style.display === 'none') {
+                reversedDiv.style.display = 'block';
+                reversedDiv.style.animation = 'fadeInUp 0.8s ease';
+            } else {
+                reversedDiv.style.display = 'none';
+            }
+        }
+
+        // Smooth scrolling for all internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 1s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Enhanced array box interactions
+        document.querySelectorAll('.array-box').forEach(box => {
+            box.addEventListener('click', function() {
+                this.style.transform = 'scale(1.2) rotate(360deg)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 600);
+            });
+        });
+
+        // Progress bar animation on view
+        const progressBars = document.querySelectorAll('.progress-fill');
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.width = entry.target.getAttribute('style').match(/width:\s*(\d+%)/)[1];
+                }
+            });
+        }, observerOptions);
+
+        progressBars.forEach(bar => observer.observe(bar));
+
+        // Add particle effect on hover for cards
+        document.querySelectorAll('.glass-card, .challenge-card').forEach(card => {
+            card.addEventListener('mouseenter', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const ripple = document.createElement('div');
+                ripple.style.position = 'absolute';
+                ripple.style.width = '5px';
+                ripple.style.height = '5px';
+                ripple.style.background = 'rgba(102, 126, 234, 0.6)';
+                ripple.style.borderRadius = '50%';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.style.pointerEvents = 'none';
+                ripple.style.animation = 'rippleEffect 1s ease-out';
+                
+                this.style.position = 'relative';
+                this.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 1000);
+            });
+        });
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes rippleEffect {
+                0% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(20);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Console message for students
+        console.log('%c🚀 HSBC Interview Prep - Premium Edition', 'font-size: 20px; font-weight: bold; color: #667eea;');
+        console.log('%cPrepared with ❤️ for your success!', 'font-size: 14px; color: #764ba2;');
+        console.log('%cTip: Explore all sections for complete preparation!', 'font-size: 12px; color: #f093fb;');
+    </script>
+</body>
+</html><div class="challenge-title">🎯 Problem Statement</div>
+                    <p style="font-size: 1.1em; margin: 15px 0;">Array mein se do numbers find karo jinke sum target ke barabar ho.</p>
+                    <p><strong>Example:</strong> nums = [2, 7, 11, 15], target = 9 → Output: [0, 1]</p>
+                    <a href="https://leetcode.com/problems/two-sum/" target="_blank" class="leetcode-link">
+                        🔗 Solve on LeetCode
+                    </a>
+                </div>
+
+                <div class="visual-demo">
+                    <h3 style="margin-bottom: 20px;">Interactive Visualization</h3>
+                    <div class="array-visual">
+                        <div class="array-box" id="arr0">2</div>
+                        <div class="array-box" id="arr1">7</div>
+                        <div class="array-box" id="arr2">11</div>
+                        <div class="array-box" id="arr3">15</div>
+                    </div>
+                    <p style="font-size: 1.3em; font-weight: 600; margin: 20px 0;">Target = 9</p>
+                    <button class="action-btn" onclick="animateTwoSum()">▶ Animate Solution</button>
+                </div>
+
+                <div class="flowchart">
+                    <div class="flow-step">Brute Force<br>O(n²)</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">HashMap<br>O(n)</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">Optimized! ✨</div>
+                </div>
+
+                <div class="tip-box">
+                    <h4>Key Concept: Complement Logic</h4>
+                    <p>Agar target = 9 aur current = 2, toh complement = 7 dhundo HashMap mein!</p>
+                </div>
+
+                <button class="action-btn" onclick="toggleContent('twosum-code')">Show Optimized Code</button>
+                
+                <div id="twosum-code" class="hidden-content">
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="language">Java</span>
+                            <div class="complexity">
+                                <span class="badge">⏱ Time: O(n)</span>
+                                <span class="badge">💾 Space: O(n)</span>
+                            </div>
+                        </div>
+                        <div class="code-block"><span class="keyword">import</span> java.util.HashMap;
+
+<span class="keyword">public int</span>[] <span class="function">twoSum</span>(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) {
+    HashMap&lt;<span class="class-name">Integer</span>, <span class="class-name">Integer</span>&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();
+    
+    <span class="keyword">for</span>(<span class="keyword">int</span> i = 0; i &lt; nums.length; i++) {
+        <span class="keyword">int</span> complement = target - nums[i];
+        
+        <span class="comment">// Check if complement exists</span>
+        <span class="keyword">if</span>(map.containsKey(complement)) {
+            <span class="keyword">return new int</span>[]{map.get(complement), i};
+        }
+        
+        <span class="comment">// Store current number with index</span>
+        map.put(nums[i], i);
+    }
+    <span class="keyword">return new int</span>[]{};
+}</div>
+                    </div>
+
+                    <div class="comparison-grid">
+                        <div class="comparison-item">
+                            <h4>✅ Why HashMap?</h4>
+                            <p>O(1) average lookup time - instant checking!</p>
+                        </div>
+                        <div class="comparison-item">
+                            <h4>🎯 Trade-off</h4>
+                            <p>Space badhta hai but time drastically reduce</p>
+                        </div>
+                        <div class="comparison-item">
+                            <h4>🌟 Real Use</h4>
+                            <p>Netflix recommendations, similar items finding</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LINKED LIST SECTION -->
+        <div id="linkedlist" class="content-section">
+            <div class="glass-card">
+                <h2 class="section-title">Problem 2: Reverse Linked List</h2>
+                
+                <div class="challenge-card">
+                    <div class="challenge-title">🔗 Problem Statement</div>
+                    <p style="font-size: 1.1em; margin: 15px 0;">Singly linked list ko reverse karo in-place.</p>
+                    <p><strong>Example:</strong> 1 → 2 → 3 → 4 → 5  becomes  5 → 4 → 3 → 2 → 1</p>
+                    <a href="https://leetcode.com/problems/reverse-linked-list/" target="_blank" class="leetcode-link">
+                        🔗 Solve on LeetCode
+                    </a>
+                </div>
+
+                <div class="visual-demo">
+                    <h3 style="margin-bottom: 20px;">Original List</h3>
+                    <div class="linked-list-visual">
+                        <div class="node">1</div>
+                        <div class="node">2</div>
+                        <div class="node">3</div>
+                        <div class="node">4</div>
+                        <div class="node">5</div>
+                    </div>
+                    <button class="action-btn" onclick="showReversed()">▶ Show Reversed</button>
+                    <div id="reversed-visual" style="display: none; margin-top: 30px;">
+                        <h3 style="margin-bottom: 20px; color: #f093fb;">Reversed List</h3>
+                        <div class="linked-list-visual">
+                            <div class="node" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">5</div>
+                            <div class="node" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">4</div>
+                            <div class="node" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">3</div>
+                            <div class="node" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">2</div>
+                            <div class="node" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">1</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flowchart">
+                    <div class="flow-step">PREV<br>(null)</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">CURRENT<br>(head)</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">NEXT<br>(temp)</div>
+                </div>
+
+                <div class="tip-box">
+                    <h4>Three Pointer Technique</h4>
+                    <p>Har step mein: Save next → Reverse link → Move forward. Chain mat todna!</p>
+                </div>
+
+                <button class="action-btn" onclick="toggleContent('ll-code')">Show Solution</button>
+                
+                <div id="ll-code" class="hidden-content">
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="language">Java - Iterative Approach</span>
+                            <div class="complexity">
+                                <span class="badge">⏱ Time: O(n)</span>
+                                <span class="badge">💾 Space: O(1)</span>
+                            </div>
+                        </div>
+                        <div class="code-block"><span class="keyword">class</span> <span class="class-name">ListNode</span> {
+    <span class="keyword">int</span> val;
+    <span class="class-name">ListNode</span> next;
+    <span class="class-name">ListNode</span>(<span class="keyword">int</span> val) { <span class="keyword">this</span>.val = val; }
+}
+
+<span class="keyword">public</span> <span class="class-name">ListNode</span> <span class="function">reverseList</span>(<span class="class-name">ListNode</span> head) {
+    <span class="class-name">ListNode</span> prev = <span class="keyword">null</span>;
+    <span class="class-name">ListNode</span> current = head;
+    
+    <span class="keyword">while</span>(current != <span class="keyword">null</span>) {
+        <span class="comment">// Step 1: Save next node (CRITICAL!)</span>
+        <span class="class-name">ListNode</span> nextTemp = current.next;
+        
+        <span class="comment">// Step 2: Reverse current link</span>
+        current.next = prev;
+        
+        <span class="comment">// Step 3: Move pointers forward</span>
+        prev = current;
+        current = nextTemp;
+    }
+    
+    <span class="keyword">return</span> prev; <span class="comment">// New head</span>
+}</div>
+                    </div>
+
+                    <div class="comparison-grid">
+                        <div class="comparison-item">
+                            <h4>⚠️ Common Mistake</h4>
+                            <p>Next pointer save mat karo toh list ka reference kho jayega!</p>
+                        </div>
+                        <div class="comparison-item">
+                            <h4>🎯 Interview Tip</h4>
+                            <p>Iterative prefer karo - better space complexity</p>
+                        </div>
+                        <div class="comparison-item">
+                            <h4>🔄 Recursive Option</h4>
+                            <p>Space O(n) due to stack - bonus mein discuss karo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RAPID FIRE SECTION -->
+        <div id="rapidfire" class="content-section">
+            <div class="glass-card">
+                <h2 class="section-title">⚡ Rapid Fire DSA</h2>
+
+                <div class="challenge-card">
+                    <div class="challenge-title">Q1: Kadane's Algorithm - Maximum Subarray Sum</div>
+                    <p><strong>Problem:</strong> Continuous subarray mein maximum sum find karo</p>
+                    <p><strong>Example:</strong> [-2,1,-3,4,-1,2,1,-5,4] → 6 (subarray: [4,-1,2,1])</p>
+                    <a href="https://leetcode.com/problems/maximum-subarray/" target="_blank" class="leetcode-link">
+                        🔗 LeetCode Link
+                    </a>
+                    <button class="action-btn" onclick="toggleContent('kadane')">Show Solution</button>
+                    
+                    <div id="kadane" class="hidden-content">
+                        <div class="tip-box">
+                            <h4>Approach: Dynamic Programming</h4>
+                            <p>Har position pe decide: current ko add karu ya nayi subarray shuru karu?</p>
+                            <p><strong>Formula:</strong> maxEndingHere = max(nums[i], maxEndingHere + nums[i])</p>
+                        </div>
+                        
+                        <div class="code-container">
+                            <div class="code-header">
+                                <span class="language">Java</span>
+                                <div class="complexity">
+                                    <span class="badge">⏱ O(n)</span>
+                                    <span class="badge">💾 O(1)</span>
+                                </div>
+                            </div>
+                            <div class="code-block"><span class="keyword">public int</span> <span class="function">maxSubArray</span>(<span class="keyword">int</span>[] nums) {
+    <span class="keyword">int</span> maxSoFar = nums[0];
+    <span class="keyword">int</span> maxEndingHere = nums[0];
+    
+    <span class="keyword">for</span>(<span class="keyword">int</span> i = 1; i &lt; nums.length; i++) {
+        maxEndingHere = Math.max(nums[i], maxEndingHere + nums[i]);
+        maxSoFar = Math.max(maxSoFar, maxEndingHere);
+    }
+    <span class="keyword">return</span> maxSoFar;
+}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="challenge-title">Q2: Detect Cycle in Linked List (Floyd's Algorithm)</div>
+                    <p><strong>Concept:</strong> Tortoise & Hare - do pointers se cycle detect karo</p>
+                    <p><strong>Logic:</strong> Slow 1 step, Fast 2 steps - agar cycle hai toh milenge!</p>
+                    <a href="https://leetcode.com/problems/linked-list-cycle/" target="_blank" class="leetcode-link">
+                        🔗 LeetCode Link
+                    </a>
+                    <button class="action-btn" onclick="toggleContent('floyd')">Show Solution</button>
+                    
+                    <div id="floyd" class="hidden-content">
+                        <div class="tip-box">
+                            <h4>Why It Works?</h4>
+                            <p>Circular track analogy - fast runner eventually slow ko catch kar lega!</p>
+                        </div>
+                        
+                        <div class="code-container">
+                            <div class="code-header">
+                                <span class="language">Java</span>
+                                <div class="complexity">
+                                    <span class="badge">⏱ O(n)</span>
+                                    <span class="badge">💾 O(1)</span>
+                                </div>
+                            </div>
+                            <div class="code-block"><span class="keyword">public boolean</span> <span class="function">hasCycle</span>(<span class="class-name">ListNode</span> head) {
+    <span class="keyword">if</span>(head == <span class="keyword">null</span>) <span class="keyword">return false</span>;
+    
+    <span class="class-name">ListNode</span> slow = head;
+    <span class="class-name">ListNode</span> fast = head;
+    
+    <span class="keyword">while</span>(fast != <span class="keyword">null</span> && fast.next != <span class="keyword">null</span>) {
+        slow = slow.next;        <span class="comment">// 1 step</span>
+        fast = fast.next.next;   <span class="comment">// 2 steps</span>
+        
+        <span class="keyword">if</span>(slow == fast) {
+            <span class="keyword">return true</span>;  <span class="comment">// Cycle detected!</span>
+        }
+    }
+    <span class="keyword">return false</span>;
+}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="challenge-title">Q3: Valid Parentheses</div>
+                    <p><strong>Problem:</strong> Brackets properly balanced hain ya nahi check karo</p>
+                    <p><strong>Example:</strong> "{[()]}" → Valid | "{[(])}" → Invalid</p>
+                    <a href="https://leetcode.com/problems/valid-parentheses/" target="_blank" class="leetcode-link">
+                        🔗 LeetCode Link
+                    </a>
+                    <button class="action-btn" onclick="toggleContent('parentheses')">Show Solution</button>
+                    
+                    <div id="parentheses" class="hidden-content">
+                        <div class="tip-box">
+                            <h4>Stack Magic</h4>
+                            <p>Opening bracket → Push | Closing bracket → Check & Pop</p>
+                            <p><strong>Application:</strong> Every IDE uses this for syntax checking!</p>
+                        </div>
+                        
+                        <div class="code-container">
+                            <div class="code-header">
+                                <span class="language">Java</span>
+                                <div class="complexity">
+                                    <span class="badge">⏱ O(n)</span>
+                                    <span class="badge">💾 O(n)</span>
+                                </div>
+                            </div>
+                            <div class="code-block"><span class="keyword">import</span> java.util.Stack;
+
+<span class="keyword">public boolean</span> <span class="function">isValid</span>(<span class="class-name">String</span> s) {
+    <span class="class-name">Stack</span>&lt;<span class="class-name">Character</span>&gt; stack = <span class="keyword">new</span> <span class="class-name">Stack</span>&lt;&gt;();
+    
+    <span class="keyword">for</span>(<span class="keyword">char</span> c : s.toCharArray()) {
+        <span class="keyword">if</span>(c == '(' || c == '{' || c == '[') {
+            stack.push(c);
+        } <span class="keyword">else</span> {
+            <span class="keyword">if</span>(stack.isEmpty()) <span class="keyword">return false</span>;
+            <span class="keyword">char</span> top = stack.pop();
+            
+            <span class="keyword">if</span>((c == ')' && top != '(') ||
+               (c == '}' && top != '{') ||
+               (c == ']' && top != '[')) {
+                <span class="keyword">return false</span>;
+            }
+        }
+    }
+    <span class="keyword">return</span> stack.isEmpty();
+}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="challenge-title">Q4: Binary Search (Recursive)</div>
+                    <p><strong>Concept:</strong> Sorted array mein O(log n) time mein search</p>
+                    <p><strong>Trick:</strong> Middle check → left ya right half recurse</p>
+                    <a href="https://leetcode.com/problems/binary-search/" target="_blank" class="leetcode-link">
+                        🔗 LeetCode Link
+                    </a>
+                    <button class="action-btn" onclick="toggleContent('binary')">Show Solution</button>
+                    
+                    <div id="binary" class="hidden-content">
+                        <div class="tip-box">
+                            <h4>Overflow Safe Formula</h4>
+                            <p>❌ mid = (left + right) / 2  →  Can overflow!</p>
+                            <p>✅ mid = left + (right - left) / 2  →  Safe approach</p>
+                        </div>
+                        
+                        <div class="code-container">
+                            <div class="code-header">
+                                <span class="language">Java</span>
+                                <div class="complexity">
+                                    <span class="badge">⏱ O(log n)</span>
+                                    <span class="badge">💾 O(log n)</span>
+                                </div>
+                            </div>
+                            <div class="code-block"><span class="keyword">public int</span> <span class="function">binarySearch</span>(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> target, <span class="keyword">int</span> left, <span class="keyword">int</span> right) {
+    <span class="keyword">if</span>(left > right) <span class="keyword">return</span> -1;
+    
+    <span class="comment">// Overflow safe mid calculation</span>
+    <span class="keyword">int</span> mid = left + (right - left) / 2;
+    
+    <span class="keyword">if</span>(arr[mid] == target) <span class="keyword">return</span> mid;
+    
+    <span class="keyword">if</span>(arr[mid] > target) {
+        <span class="keyword">return</span> <span class="function">binarySearch</span>(arr, target, left, mid - 1);
+    }
+    <span class="keyword">return</span> <span class="function">binarySearch</span>(arr, target, mid + 1, right);
+}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="challenge-title">Q5: Move Zeros to End</div>
+                    <p><strong>Problem:</strong> Sabhi zeros ko end mein move karo, order maintain karke</p>
+                    <p><strong>Example:</strong> [0,1,0,3,12] → [1,3,12,0,0]</p>
+                    <a href="https://leetcode.com/problems/move-zeroes/" target="_blank" class="leetcode-link">
+                        🔗 LeetCode Link
+                    </a>
+                    <button class="action-btn" onclick="toggleContent('movezeros')">Show Solution</button>
+                    
+                    <div id="movezeros" class="hidden-content">
+                        <div class="tip-box">
+                            <h4>Two Pointer Magic</h4>
+                            <p>Ek pointer non-zero track kare - swap karte jao!</p>
+                        </div>
+                        
+                        <div class="code-container">
+                            <div class="code-header">
+                                <span class="language">Java</span>
+                                <div class="complexity">
+                                    <span class="badge">⏱ O(n)</span>
+                                    <span class="badge">💾 O(1)</span>
+                                </div>
+                            </div>
+                            <div class="code-block"><span class="keyword">public void</span> <span class="function">moveZeroes</span>(<span class="keyword">int</span>[] nums) {
+    <span class="keyword">int</span> nonZero = 0;
+    
+    <span class="keyword">for</span>(<span class="keyword">int</span> i = 0; i &lt; nums.length; i++) {
+        <span class="keyword">if</span>(nums[i] != 0) {
+            <span class="comment">// Swap karo</span>
+            <span class="keyword">int</span> temp = nums[i];
+            nums[i] = nums[nonZero];
+            nums[nonZero] = temp;
+            nonZero++;
+        }
+    }
+}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <h2 class="section-title">🎯 Pattern Recognition</h2>
+                <div class="comparison-grid">
+                    <div class="comparison-item">
+                        <h4>Two Pointers</h4>
+                        <p><strong>Use:</strong> Sorted arrays, pairs</p>
+                        <p><strong>Example:</strong> Two Sum, Move Zeros</p>
+                    </div>
+                    <div class="comparison-item">
+                        <h4>Fast-Slow Pointers</h4>
+                        <p><strong>Use:</strong> Cycle detection</p>
+                        <p><strong>Example:</strong> Linked List Cycle</p>
+                    </div>
+                    <div class="comparison-item">
+                        <h4>Sliding Window</h4>
+                        <p><strong>Use:</strong> Subarrays, substrings</p>
+                        <p><strong>Example:</strong> Max Sum, Longest Substring</p>
+                    </div>
+                    <div class="comparison-item">
+                        <h4>HashMap/HashSet</h4>
+                        <p><strong>Use:</strong> Fast lookup</p>
+                        <p><strong>Example:</strong> Two Sum, Anagrams</p>
+                    </div>
+                    <div class="comparison-item">
+                        <h4>Stack</h4>
+                        <p><strong>Use:</strong> Matching, ordering</p>
+                        <p><strong>Example:</strong> Valid Parentheses</p>
+                    </div>
+                    <div class="comparison-item">
+                        <h4>Recursion</h4>
+                        <p><strong>Use:</strong> Divide & conquer</p>
+                        <p><strong>Example:</strong> Binary Search, Trees</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BEHAVIORAL SECTION -->
+        <div id="behavioral" class="content-section">
+            <div class="glass-card">
+                <h2 class="section-title">💼 Behavioral Questions</h2>
+
+                <div class="flowchart">
+                    <div class="flow-step">Taking<br>Responsibility</div>
+                    <div class="flow-step">Valuing<br>Difference</div>
+                    <div class="flow-step">Succeeding<br>Together</div>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="challenge-title">Q: "Resolve a team conflict"</div>
+                    <button class="action-btn" onclick="toggleContent('behav1')">Show STAR Answer</button>
+                    <div id="behav1" class="hidden-content">
+                        <div class="tip-box">
+                            <h4>STAR Framework</h4>
+                            <p><strong>S:</strong> College project - monolithic vs microservices debate</p>
+                            <p><strong>T:</strong> Keep team cohesive, find best solution</p>
+                            <p><strong>A:</strong> Pros-cons document banaya, data-driven meeting rakhi</p>
+                            <p><strong>R:</strong> Hybrid approach choose kiya - project success!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="challenge-title">Q: "Missed a deadline"</div>
+                    <button class="action-btn" onclick="toggleContent('behav2')">Show STAR Answer</button>
+                    <div id="behav2" class="hidden-content">
+                        <div class="tip-box">
+                            <h4>Taking Responsibility</h4>
+                            <p><strong>Step 1:</strong> Immediate transparent communication</p>
+                            <p><strong>Step 2:</strong> Root cause analysis - kya galat hua</p>
+                            <p><strong>Step 3:</strong> Revised timeline with buffer</p>
+                            <p><strong>Step 4:</strong> Better estimation techniques implement karo</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="challenge-title">Q: "Handle criticism"</div>
+                    <button class="action-btn" onclick="toggleContent('behav3')">Show STAR Answer</button>
+                    <div id="behav3" class="hidden-content">
+                        <div class="tip-box">
+                            <h4>Growth Mindset</h4>
+                            <p><strong>S:</strong> Code review mein senior ne questions raise kiye</p>
+                            <p><strong>T:</strong> Constructively handle without ego</p>
+                            <p><strong>A:</strong> Calmly suna, clarification maangi, notes liye</p>
+                            <p><strong>R:</strong> 30% performance improvement - ab actively feedback maangta hoon!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="challenge-card">
+                    <h2 class="section-title">Interview Rounds Overview</h2>
+                
+                <div class="rounds-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3 style="color: #667eea;">Round 1: CV Screening</h3>
+                            <p>Resume evaluation - projects, skills aur academics</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                        <div style="width: 45%;"></div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div style="width: 45%;"></div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3 style="color: #764ba2;">Round 2: Aptitude Test</h3>
+                            <p>Quantitative, logical reasoning aur verbal ability</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3 style="color: #f093fb;">Round 3: Coding Test ⭐</h3>
+                            <p>DSA problems - Most Critical Round!</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                        <div style="width: 45%;"></div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div style="width: 45%;"></div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3 style="color: #667eea;">Round 4: Values Assessment</h3>
+                            <p>Behavioral aur situational questions</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3 style="color: #764ba2;">Round 5: Technical Interview</h3>
+                            <p>Deep dive - concepts, projects, system design</p>
+                        </div>
+                        <div class="timeline-dot"></div>
+                        <div style="width: 45%;"></div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div style="width: 45%;"></div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h3 style="color: #f093fb;">Round 6: HR Round</h3>
+                            <p>Cultural fit aur final negotiations</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card">
