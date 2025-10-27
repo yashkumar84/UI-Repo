@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZS Associates - Technical Interview Prep</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 60px 20px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+
+        /* Timer */
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 15px 25px;
+            border-radius: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            animation: fadeIn 1s ease 0.3s both;
+        }
+
+        .nav-btn {
+            padding: 12px 30px;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 25px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1em;
+            font-weight: 600;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn.active {
+            background: #fff;
+            color: #667eea;
+        }
+
+        /* Section */
+        .section {
+            display: none;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 1px solid rgba(255,255,255,0.2);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.3s;
+        }
+
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .card h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .card h3 {
+            font-size: 1.5em;
+            margin: 20px 0 15px 0;
+            color: #ffd700;
+        }
+
+        /* Code Block */
+        .code-block {
+            background: #1e1e1e;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            overflow-x: auto;
+            position: relative;
+            border-left: 4px solid #4ec9b0;
+        }
+
+        .code-block pre {
+            color: #d4d4d4;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .keyword { color: #569cd6; }
+        .function { color: #dcdcaa; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .number { color: #b5cea8; }
+        .class { color: #4ec9b0; }
+
+        /* Solution Button */
+        .solution-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            margin: 15px 0;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .solution-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        .solution {
+            display: none;
+            animation: slideDown 0.5s ease;
+            margin-top: 15px;
+        }
+
+        .solution.show {
+            display: block;
+        }
+
+        /* Tip Box */
+        .tip {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid #fff;
+        }
+
+        .tip::before {
+            content: "💡 Pro Tip: ";
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        /* SQL Table */
+        .sql-table {
+            background: #fff;
+            color: #333;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .sql-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .sql-table th {
+            background: #667eea;
+            color: #fff;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .sql-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .sql-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin: 5px;
+        }
+
+        .difficulty-easy { background: #4caf50; }
+        .difficulty-medium { background: #ff9800; }
+        .difficulty-hard { background: #f44336; }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                max-height: 2000px;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+            z-index: 9999;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #ffd700;
+            width: 0;
+            transition: width 0.3s;
+        }
+
+        /* Behavioral Section */
+        .behavioral-card {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            border-left: 4px solid #ffd700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .behavioral-card:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(10px);
+        }
+
+        .behavioral-answer {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+        }
+
+        .behavioral-answer.show {
+            display: block;
+            animation: slideDown 0.5s ease;
+        }
+
+        /* Diagram */
+        .diagram {
+            background: #fff;
+            color: #333;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .emoji {
+            font-size: 2em;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="timer" id="timer">⏱️ 120:00</div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🚀 ZS Associates Technical Interview Prep</h1>
+            <p>Master DSA, SQL, System Design & Behavioral Questions</p>
+        </div>
+
+        <div class="nav">
+            <button class="nav-btn active" onclick="showSection('intro')">📋 Overview</button>
+            <button class="nav-btn" onclick="showSection('live-coding')">💻 Live Coding</button>
+            <button class="nav-btn" onclick="showSection('rapid-fire')">⚡ Rapid Fire DSA</button>
+            <button class="nav-btn" onclick="showSection('sql')">🗄️ SQL Queries</button>
+            <button class="nav-btn" onclick="showSection('system')">🏗️ System Design</button>
+            <button class="nav-btn" onclick="showSection('behavioral')">🤝 Behavioral</button>
+        </div>
+
+        <!-- INTRO SECTION -->
+        <div class="section active" id="intro">
+            <div class="card visible">
+                <h2><span class="emoji">📊</span>Session Roadmap (120 Minutes)</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px;">
+                        <h3>⏰ 0-40 min</h3>
+                        <p>Live Coding (3 Core DSA Problems)</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px;">
+                        <h3>⏰ 40-70 min</h3>
+                        <p>Rapid Fire DSA + SQL Queries</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px;">
+                        <h3>⏰ 70-100 min</h3>
+                        <p>System Design & Core CS</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px;">
+                        <h3>⏰ 100-120 min</h3>
+                        <p>Behavioral Questions & Tips</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card visible">
+                <h2><span class="emoji">🎯</span>Key Focus Areas</h2>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px;">
+                    <span class="badge">Arrays & Strings</span>
+                    <span class="badge">Linked Lists</span>
+                    <span class="badge">Window Functions</span>
+                    <span class="badge">JOINs & Aggregations</span>
+                    <span class="badge">System Design Basics</span>
+                    <span class="badge">STAR Method</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- LIVE CODING SECTION -->
+        <div class="section" id="live-coding">
+            <div class="card">
+                <h2><span class="emoji">💻</span>Problem 1: Two Sum</h2>
+                <span class="badge difficulty-easy">Easy</span>
+                <span class="badge">⭐ Most Frequently Asked</span>
+                <p style="margin: 20px 0; font-size: 1.1em;">
+                    Given an array of integers <code>nums</code> and an integer <code>target</code>, 
+                    return indices of the two numbers such that they add up to target.
+                </p>
+                <p><strong>Example:</strong></p>
+                <div class="code-block">
+                    <pre>Input: nums = [2,7,11,15], target = 9
+Output: [0,1]
+Explanation: nums[0] + nums[1] = 2 + 7 = 9</pre>
+                </div>
+
+                <div class="tip">
+                    Use a HashMap to store complements. Time: O(n), Space: O(n)
+                </div>
+
+                <button class="solution-btn" onclick="toggleSolution('sol1')">Show Solution 💡</button>
+                <div class="solution" id="sol1">
+                    <div class="code-block">
+                        <pre><span class="comment">// Java Solution</span>
+<span class="keyword">public</span> <span class="keyword">int</span>[] <span class="function">twoSum</span>(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) {
+    <span class="class">HashMap</span>&lt;<span class="class">Integer</span>, <span class="class">Integer</span>&gt; map = <span class="keyword">new</span> <span class="class">HashMap</span>&lt;&gt;();
+    
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) {
+        <span class="keyword">int</span> complement = target - nums[i];
+        
+        <span class="keyword">if</span> (map.containsKey(complement)) {
+            <span class="keyword">return new int</span>[] { map.get(complement), i };
+        }
+        
+        map.put(nums[i], i);
+    }
+    
+    <span class="keyword">return new int</span>[] {};
+}
+
+<span class="comment">// Time Complexity: O(n)</span>
+<span class="comment">// Space Complexity: O(n)</span></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><span class="emoji">🔗</span>Problem 2: Reverse a Linked List</h2>
+                <span class="badge difficulty-easy">Easy</span>
+                <span class="badge">⭐ Top Interview Question</span>
+                <p style="margin: 20px 0; font-size: 1.1em;">
+                    Reverse a singly linked list iteratively and recursively.
+                </p>
+                <p><strong>Example:</strong></p>
+                <div class="code-block">
+                    <pre>Input:  1 → 2 → 3 → 4 → 5 → NULL
+Output: 5 → 4 → 3 → 2 → 1 → NULL</pre>
+                </div>
+
+                <div class="tip">
+                    Three pointers approach: prev, current, next. Remember to break and reform links!
+                </div>
+
+                <button class="solution-btn" onclick="toggleSolution('sol2')">Show Solution 💡</button>
+                <div class="solution" id="sol2">
+                    <div class="code-block">
+                        <pre><span class="comment">// Iterative Solution</span>
+<span class="keyword">public</span> <span class="class">ListNode</span> <span class="function">reverseList</span>(<span class="class">ListNode</span> head) {
+    <span class="class">ListNode</span> prev = <span class="keyword">null</span>;
+    <span class="class">ListNode</span> current = head;
+    
+    <span class="keyword">while</span> (current != <span class="keyword">null</span>) {
+        <span class="class">ListNode</span> next = current.next;  <span class="comment">// Save next</span>
+        current.next = prev;            <span class="comment">// Reverse link</span>
+        prev = current;                 <span class="comment">// Move prev forward</span>
+        current = next;                 <span class="comment">// Move current forward</span>
+    }
+    
+    <span class="keyword">return</span> prev;
+}
+
+<span class="comment">// Recursive Solution</span>
+<span class="keyword">public</span> <span class="class">ListNode</span> <span class="function">reverseListRecursive</span>(<span class="class">ListNode</span> head) {
+    <span class="keyword">if</span> (head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>) {
+        <span class="keyword">return</span> head;
+    }
+    
+    <span class="class">ListNode</span> newHead = reverseListRecursive(head.next);
+    head.next.next = head;
+    head.next = <span class="keyword">null</span>;
+    
+    <span class="keyword">return</span> newHead;
+}
+
+<span class="comment">// Time: O(n), Space: O(1) iterative, O(n) recursive</span></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><span class="emoji">📊</span>Problem 3: Kadane's Algorithm (Max Subarray Sum)</h2>
+                <span class="badge difficulty-medium">Medium</span>
+                <span class="badge">⭐ Classic DP Problem</span>
+                <p style="margin: 20px 0; font-size: 1.1em;">
+                    Find the contiguous subarray with the largest sum.
+                </p>
+                <p><strong>Example:</strong></p>
+                <div class="code-block">
+                    <pre>Input: [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+Output: 6
+Explanation: [4, -1, 2, 1] has the largest sum = 6</pre>
+                </div>
+
+                <div class="tip">
+                    At each position, decide: include current element in existing subarray or start fresh?
+                </div>
+
+                <button class="solution-btn" onclick="toggleSolution('sol3')">Show Solution 💡</button>
+                <div class="solution" id="sol3">
+                    <div class="code-block">
+                        <pre><span class="comment">// Kadane's Algorithm</span>
+<span class="keyword">public</span> <span class="keyword">int</span> <span class="function">maxSubArray</span>(<span class="keyword">int</span>[] nums) {
+    <span class="keyword">int</span> maxSoFar = nums[<span class="number">0</span>];
+    <span class="keyword">int</span> maxEndingHere = nums[<span class="number">0</span>];
+    
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; i++) {
+        <span class="comment">// Either extend existing subarray or start new</span>
+        maxEndingHere = <span class="class">Math</span>.max(nums[i], maxEndingHere + nums[i]);
+        
+        <span class="comment">// Update global maximum</span>
+        maxSoFar = <span class="class">Math</span>.max(maxSoFar, maxEndingHere);
+    }
+    
+    <span class="keyword">return</span> maxSoFar;
+}
+
+<span class="comment">// Time Complexity: O(n)</span>
+<span class="comment">// Space Complexity: O(1)</span>
+
+<span class="comment">// Key Insight: maxEndingHere tracks best sum ending at position i</span></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RAPID FIRE DSA -->
+        <div class="section" id="rapid-fire">
+            <div class="card">
+                <h2><span class="emoji">⚡</span>Rapid Fire DSA Problems</h2>
+                <p style="margin-bottom: 20px;">Quick solutions to common interview problems</p>
+
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; margin: 15px 0;">
+                    <h3>🔍 First Non-Repeating Character</h3>
+                    <span class="badge difficulty-easy">Easy</span>
+                    <p style="margin: 10px 0;">Find the first character that appears only once in a string.</p>
+                    <button class="solution-btn" onclick="toggleSolution('rf1')">Show Solution 💡</button>
+                    <div class="solution" id="rf1">
+                        <div class="code-block">
+                            <pre><span class="keyword">public</span> <span class="keyword">char</span> <span class="function">firstNonRepeating</span>(<span class="class">String</span> s) {
+    <span class="class">HashMap</span>&lt;<span class="class">Character</span>, <span class="class">Integer</span>&gt; freq = <span class="keyword">new</span> <span class="class">HashMap</span>&lt;&gt;();
+    
+    <span class="comment">// Count frequencies</span>
+    <span class="keyword">for</span> (<span class="keyword">char</span> c : s.toCharArray()) {
+        freq.put(c, freq.getOrDefault(c, <span class="number">0</span>) + <span class="number">1</span>);
+    }
+    
+    <span class="comment">// Find first with freq = 1</span>
+    <span class="keyword">for</span> (<span class="keyword">char</span> c : s.toCharArray()) {
+        <span class="keyword">if</span> (freq.get(c) == <span class="number">1</span>) <span class="keyword">return</span> c;
+    }
+    
+    <span class="keyword">return</span> <span class="string">'\0'</span>;
+}
+<span class="comment">// Time: O(n), Space: O(1) - at most 26 characters</span></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; margin: 15px 0;">
+                    <h3>🔄 Detect Cycle in Linked List (Floyd's Algorithm)</h3>
+                    <span class="badge difficulty-easy">Easy</span>
+                    <p style="margin: 10px 0;">Use slow and fast pointers to detect if a cycle exists.</p>
+                    <button class="solution-btn" onclick="toggleSolution('rf2')">Show Solution 💡</button>
+                    <div class="solution" id="rf2">
+                        <div class="code-block">
+                            <pre><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="function">hasCycle</span>(<span class="class">ListNode</span> head) {
+    <span class="keyword">if</span> (head == <span class="keyword">null</span>) <span class="keyword">return false</span>;
+    
+    <span class="class">ListNode</span> slow = head;
+    <span class="class">ListNode</span> fast = head;
+    
+    <span class="keyword">while</span> (fast != <span class="keyword">null</span> && fast.next != <span class="keyword">null</span>) {
+        slow = slow.next;           <span class="comment">// Move 1 step</span>
+        fast = fast.next.next;      <span class="comment">// Move 2 steps</span>
+        
+        <span class="keyword">if</span> (slow == fast) {
+            <span class="keyword">return true</span>;  <span class="comment">// Cycle detected</span>
+        }
+    }
+    
+    <span class="keyword">return false</span>;
+}
+<span class="comment">// Time: O(n), Space: O(1)</span></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; margin: 15px 0;">
+                    <h3>🔢 Longest Subarray with Sum Zero</h3>
+                    <span class="badge difficulty-medium">Medium</span>
+                    <p style="margin: 10px 0;">Find length of longest subarray with sum = 0 using prefix sums.</p>
+                    <button class="solution-btn" onclick="toggleSolution('rf3')">Show Solution 💡</button>
+                    <div class="solution" id="rf3">
+                        <div class="code-block">
+                            <pre><span class="keyword">public</span> <span class="keyword">int</span> <span class="function">maxLenSubarraySum0</span>(<span class="keyword">int</span>[] arr) {
+    <span class="class">HashMap</span>&lt;<span class="class">Integer</span>, <span class="class">Integer</span>&gt; map = <span class="keyword">new</span> <span class="class">HashMap</span>&lt;&gt;();
+    <span class="keyword">int</span> sum = <span class="number">0</span>, maxLen = <span class="number">0</span>;
+    
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) {
+        sum += arr[i];
+        
+        <span class="keyword">if</span> (sum == <span class="number">0</span>) maxLen = i + <span class="number">1</span>;
+        
+        <span class="keyword">if</span> (map.containsKey(sum)) {
+            maxLen = <span class="class">Math</span>.max(maxLen, i - map.get(sum));
+        } <span class="keyword">else</span> {
+            map.put(sum, i);
+        }
+    }
+    
+    <span class="keyword">return</span> maxLen;
+}
+<span class="comment">// Time: O(n), Space: O(n)</span></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; margin: 15px 0;">
+                    <h3>🎯 Merge Two Sorted Linked Lists</h3>
+                    <span class="badge difficulty-easy">Easy</span>
+                    <button class="solution-btn" onclick="toggleSolution('rf4')">Show Solution 💡</button>
+                    <div class="solution" id="rf4">
+                        <div class="code-block">
+                            <pre><span class="keyword">public</span> <span class="class">ListNode</span> <span class="function">mergeTwoLists</span>(<span class="class">ListNode</span> l1, <span class="class">ListNode</span> l2) {
+    <span class="class">ListNode</span> dummy = <span class="keyword">new</span> <span class="class">ListNode</span>(<span class="number">0</span>);
+    <span class="class">ListNode</span> current = dummy;
+    
+    <span class="keyword">while</span> (l1 != <span class="keyword">null</span> && l2 != <span class="keyword">null</span>) {
+        <span class="keyword">if</span> (l1.val &lt; l2.val) {
+            current.next = l1;
+            l1 = l1.next;
+        } <span class="keyword">else</span> {
+            current.next = l2;
+            l2 = l2.next;
+        }
+        current = current.next;
+    }
+    
+    current.next = (l1 != <span class="keyword">null</span>) ? l1 : l2;
+    <span class="keyword">return</span> dummy.next;
+}
+<span class="comment">// Time: O(m+n), Space: O(1)</span></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SQL SECTION -->
+        <div class="section" id="sql">
+            <div class="card">
+                <h2><span class="emoji">🗄️</span>SQL Query Challenges</h2>
+                
+                <h3>Problem 1: Monthly Revenue with Window Functions</h3>
+                <p style="margin: 15px 0;">Given Sales table, find monthly totals and identify months exceeding annual average.</p>
+                
+                <div class="sql-table">
+                    <h4 style="padding: 15px; margin: 0; background: #667eea; color: white;">📊 Sales Table</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>sale_id</th>
+                                <th>sale_date</th>
+                                <th>product_id</th>
+                                <th>amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1</td><td>2024-01-15</td><td>101</td><td>1500</td></tr>
+                            <tr><td>2</td><td>2024-01-20</td><td>102</td><td>2000</td></tr>
+                            <tr><td>3</td><td>2024-02-10</td><td>101</td><td>1800</td></tr>
+                            <tr><td>4</td><td>2024-02-25</td><td>103</td><td>2500</td></tr>
+                            <tr><td>5</td><td>2024-03-05</td><td>102</td><td>3000</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <button class="solution-btn" onclick="toggleSolution('sql1')">Show Solution 💡</button>
+                <div class="solution" id="sql1">
+                    <div class="code-block">
+                        <pre><span class="comment">-- Step 1: Calculate monthly totals and annual average</span>
+<span class="keyword">WITH</span> monthly_sales <span class="keyword">AS</span> (
+    <span class="keyword">SELECT</span> 
+        <span class="function">DATE_TRUNC</span>(<span class="string">'month'</span>, sale_date) <span class="keyword">AS</span> month,
+        <span class="function">SUM</span>(amount) <span class="keyword">AS</span> monthly_revenue
+    <span class="keyword">FROM</span> Sales
+    <span class="keyword">GROUP BY</span> <span class="function">DATE_TRUNC</span>(<span class="string">'month'</span>, sale_date)
+),
+annual_avg <span class="keyword">AS</span> (
+    <span class="keyword">SELECT</span> <span class="function">AVG</span>(monthly_revenue) <span class="keyword">AS</span> avg_revenue
+    <span class="keyword">FROM</span> monthly_sales
+)
+<span class="keyword">SELECT</span> 
+    m.month,
+    m.monthly_revenue,
+    a.avg_revenue,
+    <span class="keyword">CASE</span> 
+        <span class="keyword">WHEN</span> m.monthly_revenue > a.avg_revenue 
+        <span class="keyword">THEN</span> <span class="string">'Above Average'</span>
+        <span class="keyword">ELSE</span> <span class="string">'Below Average'</span>
+    <span class="keyword">END AS</span> status
+<span class="keyword">FROM</span> monthly_sales m
+<span class="keyword">CROSS JOIN</span> annual_avg a
+<span class="keyword">ORDER BY</span> m.month;</pre>
+                    </div>
+                    <div class="tip">
+                        Key concepts: CTEs, DATE_TRUNC for grouping by month, window functions for averages.
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 40px;">Problem 2: Second Highest Salary per Department</h3>
+                <p style="margin: 15px 0;">Use window functions to get the 2nd highest salary in each department.</p>
+                
+                <div class="sql-table">
+                    <h4 style="padding: 15px; margin: 0; background: #667eea; color: white;">👥 Employees Table</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>emp_id</th>
+                                <th>name</th>
+                                <th>department</th>
+                                <th>salary</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1</td><td>Alice</td><td>Engineering</td><td>90000</td></tr>
+                            <tr><td>2</td><td>Bob</td><td>Engineering</td><td>85000</td></tr>
+                            <tr><td>3</td><td>Charlie</td><td>Sales</td><td>75000</td></tr>
+                            <tr><td>4</td><td>David</td><td>Sales</td><td>80000</td></tr>
+                            <tr><td>5</td><td>Eve</td><td>Engineering</td><td>95000</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <button class="solution-btn" onclick="toggleSolution('sql2')">Show Solution 💡</button>
+                <div class="solution" id="sql2">
+                    <div class="code-block">
+                        <pre><span class="comment">-- Using DENSE_RANK() window function</span>
+<span class="keyword">WITH</span> ranked_salaries <span class="keyword">AS</span> (
+    <span class="keyword">SELECT</span> 
+        name,
+        department,
+        salary,
+        <span class="function">DENSE_RANK</span>() <span class="keyword">OVER</span> (
+            <span class="keyword">PARTITION BY</span> department 
+            <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
+        ) <span class="keyword">AS</span> rank
+    <span class="keyword">FROM</span> Employees
+)
+<span class="keyword">SELECT</span> 
+    department,
+    name,
+    salary
+<span class="keyword">FROM</span> ranked_salaries
+<span class="keyword">WHERE</span> rank = <span class="number">2</span>;
+
+<span class="comment">-- Alternative: Using ROW_NUMBER()</span>
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> (
+    <span class="keyword">SELECT</span> 
+        department,
+        name,
+        salary,
+        <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span> (
+            <span class="keyword">PARTITION BY</span> department 
+            <span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>
+        ) <span class="keyword">AS</span> rn
+    <span class="keyword">FROM</span> Employees
+) t
+<span class="keyword">WHERE</span> rn = <span class="number">2</span>;</pre>
+                    </div>
+                    <div class="tip">
+                        RANK() vs DENSE_RANK() vs ROW_NUMBER(): RANK skips numbers after ties, DENSE_RANK doesn't skip, ROW_NUMBER gives unique ranks.
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 40px;">Problem 3: Remove Duplicates Keeping Latest</h3>
+                <p style="margin: 15px 0;">Delete duplicate rows, keeping only the record with the latest timestamp.</p>
+
+                <button class="solution-btn" onclick="toggleSolution('sql3')">Show Solution 💡</button>
+                <div class="solution" id="sql3">
+                    <div class="code-block">
+                        <pre><span class="comment">-- Method 1: Using ROW_NUMBER() and DELETE</span>
+<span class="keyword">WITH</span> cte <span class="keyword">AS</span> (
+    <span class="keyword">SELECT</span> 
+        *,
+        <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span> (
+            <span class="keyword">PARTITION BY</span> customer_id, order_id
+            <span class="keyword">ORDER BY</span> timestamp <span class="keyword">DESC</span>
+        ) <span class="keyword">AS</span> rn
+    <span class="keyword">FROM</span> Orders
+)
+<span class="keyword">DELETE FROM</span> Orders
+<span class="keyword">WHERE</span> (customer_id, order_id, timestamp) <span class="keyword">IN</span> (
+    <span class="keyword">SELECT</span> customer_id, order_id, timestamp
+    <span class="keyword">FROM</span> cte
+    <span class="keyword">WHERE</span> rn > <span class="number">1</span>
+);
+
+<span class="comment">-- Method 2: Create new table without duplicates</span>
+<span class="keyword">CREATE TABLE</span> Orders_Clean <span class="keyword">AS</span>
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> (
+    <span class="keyword">SELECT</span> 
+        *,
+        <span class="function">ROW_NUMBER</span>() <span class="keyword">OVER</span> (
+            <span class="keyword">PARTITION BY</span> customer_id, order_id
+            <span class="keyword">ORDER BY</span> timestamp <span class="keyword">DESC</span>
+        ) <span class="keyword">AS</span> rn
+    <span class="keyword">FROM</span> Orders
+) t
+<span class="keyword">WHERE</span> rn = <span class="number">1</span>;</pre>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 40px;">Problem 4: Running Total with Window Functions</h3>
+                <button class="solution-btn" onclick="toggleSolution('sql4')">Show Solution 💡</button>
+                <div class="solution" id="sql4">
+                    <div class="code-block">
+                        <pre><span class="keyword">SELECT</span> 
+    sale_date,
+    amount,
+    <span class="function">SUM</span>(amount) <span class="keyword">OVER</span> (
+        <span class="keyword">ORDER BY</span> sale_date
+        <span class="keyword">ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW</span>
+    ) <span class="keyword">AS</span> running_total,
+    <span class="function">AVG</span>(amount) <span class="keyword">OVER</span> (
+        <span class="keyword">ORDER BY</span> sale_date
+        <span class="keyword">ROWS BETWEEN</span> <span class="number">2</span> <span class="keyword">PRECEDING AND CURRENT ROW</span>
+    ) <span class="keyword">AS</span> moving_avg_3
+<span class="keyword">FROM</span> Sales
+<span class="keyword">ORDER BY</span> sale_date;</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SYSTEM DESIGN SECTION -->
+        <div class="section" id="system">
+            <div class="card">
+                <h2><span class="emoji">🏗️</span>System Design & Core CS Concepts</h2>
+
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; margin: 15px 0;">
+                    <h3>🔐 ACID Properties</h3>
+                    <p style="margin: 10px 0;">Essential for database transactions</p>
+                    <button class="solution-btn" onclick="toggleSolution('sys1')">Show Details 💡</button>
+                    <div class="solution" id="sys1">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 15px;">
+                            <div style="background: rgba(76, 175, 80, 0.2); padding: 15px; border-radius: 8px;">
+                                <h4>⚛️ Atomicity</h4>
+                                <p>All or nothing - transaction completes fully or not at all</p>
+                                <p style="font-size: 0.9em; margin-top: 10px;">Example: Bank transfer must debit and credit both accounts</p>
+                            </div>
+                            <div style="background: rgba(33, 150, 243, 0.2); padding: 15px; border-radius: 8px;">
+                                <h4>✅ Consistency</h4>
+                                <p>Database remains in valid state before and after transaction</p>
+                                <p style="font-size: 0.9em; margin-top: 10px;">Example: Total money in system stays constant</p>
+                            </div>
+                            <div style="background: rgba(255, 152, 0, 0.2); padding: 15px; border-radius: 8px;">
+                                <h4>🔒 Isolation</h4>
+                                <p>Concurrent transactions don't interfere with each other</p>
+                                <p style="font-size: 0.9em; margin-top: 10px;">Example: Two people booking same seat see consistent data</p>
+                            </div>
+                            <div style="background: rgba(156, 39, 176, 0.2); padding: 15px; border-radius: 8px;">
+                                <h4>💾 Durability</h4>
+                                <p>Committed changes persist even after system failure</p>
+                                <p style="font-size: 0.9em; margin-top: 10px;">Example: Payment recorded survives server crash</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; margin: 15px 0;">
+                    <h3>📊 Database Normalization (3NF)</h3>
+                    <button class="solution-btn" onclick="toggleSolution('sys2')">Show Process 💡</button>
+                    <div class="solution" id="sys2">
+                        <div class="code-block">
+                            <pre><span class="comment">-- Unnormalized Orders Table</span>
+OrderID | CustomerName | CustomerEmail | Product | Price | Quantity
+----------------------------------------------------------------------
+1       | John         | john@mail.com | Laptop  | 1000  | 2
+1       | John         | john@mail.com | Mouse   | 20    | 1
+
+<span class="comment">-- 1NF: Remove repeating groups, atomic values</span>
+Orders: OrderID | CustomerID | Timestamp
+OrderItems: OrderItemID | OrderID | ProductID | Quantity
+
+<span class="comment">-- 2NF: Remove partial dependencies</span>
+Customers: CustomerID | CustomerName | CustomerEmail
+Products: ProductID | ProductName | Price
+
+<span class="comment">-- 3NF: Remove transitive dependencies</span>
+<span class="comment">// All non-key attributes depend ONLY on primary key</span>
+
+<span class="string">Benefits:</span> Reduces redundancy, prevents update anomalies
+<span class="string">Trade-off:</span> More JOINs needed for queries</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; margin: 15px 0;">
+                    <h3>🌐 TCP vs UDP</h3>
+                    <button class="solution-btn" onclick="toggleSolution('sys3')">Show Comparison 💡</button>
+                    <div class="solution" id="sys3">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+                            <div style="background: rgba(76, 175, 80, 0.2); padding: 20px; border-radius: 8px;">
+                                <h4>🔗 TCP (Transmission Control Protocol)</h4>
+                                <ul style="margin-left: 20px; margin-top: 10px;">
+                                    <li>✅ Connection-oriented</li>
+                                    <li>✅ Reliable delivery (ACK)</li>
+                                    <li>✅ Ordered packets</li>
+                                    <li>✅ Error checking</li>
+                                    <li>❌ Slower (overhead)</li>
+                                </ul>
+                                <p style="margin-top: 15px;"><strong>Use for:</strong> HTTP, Email, File Transfer</p>
+                            </div>
+                            <div style="background: rgba(244, 67, 54, 0.2); padding: 20px; border-radius: 8px;">
+                                <h4>⚡ UDP (User Datagram Protocol)</h4>
+                                <ul style="margin-left: 20px; margin-top: 10px;">
+                                    <li>✅ Connectionless</li>
+                                    <li>✅ Fast (low latency)</li>
+                                    <li>✅ No overhead</li>
+                                    <li>❌ No delivery guarantee</li>
+                                    <li>❌ No ordering</li>
+                                </ul>
+                                <p style="margin-top: 15px;"><strong>Use for:</strong> Video streaming, Gaming, DNS</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; margin: 15px 0;">
+                    <h3>⚖️ CAP Theorem</h3>
+                    <button class="solution-btn" onclick="toggleSolution('sys4')">Show Explanation 💡</button>
+                    <div class="solution" id="sys4">
+                        <div class="diagram">
+                            <h4 style="color: #667eea; margin-bottom: 20px;">Choose Any Two</h4>
+                            <div style="display: flex; justify-content: space-around; margin: 20px 0;">
+                                <div style="text-align: center;">
+                                    <div style="width: 100px; height: 100px; background: #4caf50; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em; margin: 0 auto;">C</div>
+                                    <p style="margin-top: 10px; color: #333;"><strong>Consistency</strong></p>
+                                    <p style="font-size: 0.9em; color: #666;">All nodes see same data</p>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="width: 100px; height: 100px; background: #2196f3; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em; margin: 0 auto;">A</div>
+                                    <p style="margin-top: 10px; color: #333;"><strong>Availability</strong></p>
+                                    <p style="font-size: 0.9em; color: #666;">System always responds</p>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="width: 100px; height: 100px; background: #ff9800; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em; margin: 0 auto;">P</div>
+                                    <p style="margin-top: 10px; color: #333;"><strong>Partition Tolerance</strong></p>
+                                    <p style="font-size: 0.9em; color: #666;">Works despite network failures</p>
+                                </div>
+                            </div>
+                            <div style="margin-top: 30px; color: #333;">
+                                <p><strong>Examples:</strong></p>
+                                <p>• CA: Traditional RDBMS (no partition tolerance)</p>
+                                <p>• CP: MongoDB, HBase (sacrifice availability for consistency)</p>
+                                <p>• AP: Cassandra, DynamoDB (eventual consistency)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; margin: 15px 0;">
+                    <h3>🔄 REST API Design</h3>
+                    <button class="solution-btn" onclick="toggleSolution('sys5')">Show Best Practices 💡</button>
+                    <div class="solution" id="sys5">
+                        <div class="code-block">
+                            <pre><span class="comment">// REST API Endpoints for Todo App</span>
+
+<span class="keyword">GET</span>    /api/todos              <span class="comment">// Get all todos</span>
+<span class="keyword">GET</span>    /api/todos/:id          <span class="comment">// Get specific todo</span>
+<span class="keyword">POST</span>   /api/todos              <span class="comment">// Create new todo</span>
+<span class="keyword">PUT</span>    /api/todos/:id          <span class="comment">// Update entire todo</span>
+<span class="keyword">PATCH</span>  /api/todos/:id          <span class="comment">// Partially update todo</span>
+<span class="keyword">DELETE</span> /api/todos/:id          <span class="comment">// Delete todo</span>
+
+<span class="comment">// Response Format</span>
+{
+  <span class="string">"status"</span>: <span class="string">"success"</span>,
+  <span class="string">"data"</span>: {
+    <span class="string">"id"</span>: <span class="number">1</span>,
+    <span class="string">"title"</span>: <span class="string">"Complete project"</span>,
+    <span class="string">"completed"</span>: <span class="keyword">false</span>
+  }
+}
+
+<span class="comment">// HTTP Status Codes</span>
+<span class="number">200</span> - OK
+<span class="number">201</span> - Created
+<span class="number">400</span> - Bad Request
+<span class="number">401</span> - Unauthorized
+<span class="number">404</span> - Not Found
+<span class="number">500</span> - Internal Server Error</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BEHAVIORAL SECTION -->
+        <div class="section" id="behavioral">
+            <div class="card">
+                <h2><span class="emoji">🤝</span>Behavioral Questions (STAR Method)</h2>
+                
+                <div class="tip">
+                    STAR Method: <strong>S</strong>ituation → <strong>T</strong>ask → <strong>A</strong>ction → <strong>R</strong>esult
+                </div>
+
+                <div class="behavioral-card" onclick="toggleBehavioral('beh1')">
+                    <h3>💪 Tell me about a time you failed and what you learned</h3>
+                    <div class="behavioral-answer" id="beh1">
+                        <p><strong>📍 Situation:</strong> During my final year project, I was developing a machine learning model for sentiment analysis. I spent 3 weeks on a complex deep learning approach.</p>
+                        <p><strong>📋 Task:</strong> Deliver a working model with 80% accuracy within 4 weeks</p>
+                        <p><strong>⚡ Action:</strong> I realized my approach was too complex. I pivoted to a simpler ensemble method, consulted my professor, and focused on feature engineering rather than model complexity.</p>
+                        <p><strong>🎯 Result:</strong> Achieved 85% accuracy with 1 week to spare. Learned that simple solutions often work best, and it's okay to change direction when something isn't working.</p>
+                    </div>
+                </div>
+
+                <div class="behavioral-card" onclick="toggleBehavioral('beh2')">
+                    <h3>⏰ Describe handling a tight deadline</h3>
+                    <div class="behavioral-answer" id="beh2">
+                        <p><strong>📍 Situation:</strong> Client needed a data pipeline delivered in 2 weeks instead of planned 4 weeks for an urgent board presentation.</p>
+                        <p><strong>📋 Task:</strong> Deliver core features without compromising data quality</p>
+                        <p><strong>⚡ Action:</strong> I prioritized features using MoSCoW method (Must, Should, Could, Won't), automated testing, worked extended hours strategically, and communicated progress daily to manage expectations.</p>
+                        <p><strong>🎯 Result:</strong> Delivered all critical features on time. Pipeline processed 1M+ records accurately. Client was impressed and it led to contract extension.</p>
+                    </div>
+                </div>
+
+                <div class="behavioral-card" onclick="toggleBehavioral('beh3')">
+                    <h3>🔧 Tell me about improving a process</h3>
+                    <div class="behavioral-answer" id="beh3">
+                        <p><strong>📍 Situation:</strong> Our team spent 3-4 hours weekly on manual data quality checks for ETL pipeline</p>
+                        <p><strong>📋 Task:</strong> Reduce manual effort and improve accuracy</p>
+                        <p><strong>⚡ Action:</strong> I created automated data validation scripts using Python and Great Expectations library. Set up alerts for anomalies and dashboard for monitoring key metrics.</p>
+                        <p><strong>🎯 Result:</strong> Reduced manual effort by 90% (from 4 hours to 20 minutes). Caught 15% more data issues proactively. Team could focus on analysis rather than validation.</p>
+                    </div>
+                </div>
+
+                <div class="behavioral-card" onclick="toggleBehavioral('beh4')">
+                    <h3>🎓 Explain when you quickly learned new technology</h3>
+                    <div class="behavioral-answer" id="beh4">
+                        <p><strong>📍 Situation:</strong> Project required using Apache Spark, which I hadn't used before. Timeline was 1 week to deliver first results.</p>
+                        <p><strong>📋 Task:</strong> Learn Spark and process 10GB dataset efficiently</p>
+                        <p><strong>⚡ Action:</strong> Spent first 2 days on focused learning (documentation, YouTube tutorials, hands-on practice). Applied learning immediately on small dataset. Sought help from experienced colleague for optimization tips.</p>
+                        <p><strong>🎯 Result:</strong> Successfully processed entire dataset in 5 days. Optimized queries reduced runtime from 2 hours to 25 minutes. Now Spark is one of my strong skills.</p>
+                    </div>
+                </div>
+
+                <div class="behavioral-card" onclick="toggleBehavioral('beh5')">
+                    <h3>🎯 Why ZS Associates?</h3>
+                    <div class="behavioral-answer" id="beh5">
+                        <p><strong>1. Analytics Leadership:</strong> ZS is a leader in analytics and AI, especially in healthcare and pharma domains. I want to work where data science directly impacts business decisions.</p>
+                        <p><strong>2. Platform Services Role:</strong> This aligns perfectly with my skills in SQL, Python, and building data pipelines. I love the infrastructure side of analytics.</p>
+                        <p><strong>3. Learning Culture:</strong> ZS is known for investing in employee growth. The complex client problems and collaborative environment will accelerate my learning.</p>
+                        <p><strong>4. Impact:</strong> Healthcare analytics at ZS helps pharmaceutical companies make better decisions, ultimately improving patient outcomes. This purpose-driven work excites me.</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 40px;">🧮 Guesstimate Example</h3>
+                <div class="behavioral-card" onclick="toggleBehavioral('guess1')">
+                    <h3>How many petrol pumps in Delhi?</h3>
+                    <div class="behavioral-answer" id="guess1">
+                        <div class="code-block">
+                            <pre><span class="comment">// Structured Approach</span>
+
+<span class="keyword">Step 1: Define assumptions</span>
+- Delhi population: ~<span class="number">20</span> million
+- Households: <span class="number">20M</span> / <span class="number">4</span> = <span class="number">5</span> million
+- Vehicle ownership: ~<span class="number">40%</span> = <span class="number">2</span> million vehicles
+
+<span class="keyword">Step 2: Calculate daily fuel demand</span>
+- Avg fuel tank: <span class="number">40</span> liters
+- Refill frequency: every <span class="number">7</span> days
+- Daily refills needed: <span class="number">2M</span> / <span class="number">7</span> = ~<span class="number">285,000</span> refills/day
+
+<span class="keyword">Step 3: Capacity per pump</span>
+- Operating hours: <span class="number">20</span> hours/day
+- Time per refill: <span class="number">5</span> minutes
+- Customers per pump: <span class="number">20</span>*<span class="number">60</span>/<span class="number">5</span> = <span class="number">240</span> per day
+- Nozzles per pump: <span class="number">4</span>
+- Capacity: <span class="number">240</span>*<span class="number">4</span> = <span class="number">960</span> refills/pump/day
+
+<span class="keyword">Step 4: Calculate number of pumps</span>
+- Pumps needed: <span class="number">285,000</span> / <span class="number">960</span> ≈ <span class="number">300</span> pumps
+
+<span class="keyword">Step 5: Adjust for reality</span>
+- Peak hours, inefficiency: <span class="number">1.5x</span> = <span class="number">450</span>
+- Commercial vehicles: +<span class="number">20%</span> = <span class="number">540</span>
+
+<span class="string">Final Answer: ~500-600 petrol pumps in Delhi</span>
+
+<span class="comment">// Key: Show structured thinking, state assumptions clearly</span></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tip" style="margin-top: 30px;">
+                    <strong>Interview Tips:</strong><br>
+                    • Always clarify questions before answering<br>
+                    • Think aloud - interviewers want to see your thought process<br>
+                    • For coding: State time/space complexity before and after optimization<br>
+                    • Ask about edge cases (empty arrays, nulls, negative numbers)<br>
+                    • Practice the STAR method - keep answers to 2-3 minutes<br>
+                    • For SQL: Think about performance (indexes, joins vs subqueries)<br>
+                    • Be honest about what you don't know, but show willingness to learn
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><span class="emoji">🎲</span>Quick Puzzles & Logic</h2>
+
+                <div class="behavioral-card" onclick="toggleBehavioral('puzzle1')">
+                    <h3>💊 6 Bottles with Pills (One Weighing Challenge)</h3>
+                    <div class="behavioral-answer" id="puzzle1">
+                        <p><strong>Problem:</strong> 6 bottles with 100 pills each. Five have 1.0g pills, one has 1.1g pills. Using scale once, find the heavier bottle.</p>
+                        <div class="code-block">
+                            <pre><span class="comment">// Solution</span>
+
+<span class="keyword">Strategy:</span> Take different number of pills from each bottle
+
+<span class="string">Step 1:</span> Label bottles <span class="number">1, 2, 3, 4, 5, 6</span>
+
+<span class="string">Step 2:</span> Take pills:
+- Bottle <span class="number">1</span>: <span class="number">1</span> pill
+- Bottle <span class="number">2</span>: <span class="number">2</span> pills
+- Bottle <span class="number">3</span>: <span class="number">3</span> pills
+- Bottle <span class="number">4</span>: <span class="number">4</span> pills
+- Bottle <span class="number">5</span>: <span class="number">5</span> pills
+- Bottle <span class="number">6</span>: <span class="number">6</span> pills
+
+<span class="string">Step 3:</span> Weigh all together
+Expected weight (all 1.0g): <span class="number">1</span>+<span class="number">2</span>+<span class="number">3</span>+<span class="number">4</span>+<span class="number">5</span>+<span class="number">6</span> = <span class="number">21.0</span>g
+
+<span class="keyword">If weight is:</span>
+- <span class="number">21.1</span>g → Bottle <span class="number">1</span> has heavier pills
+- <span class="number">21.2</span>g → Bottle <span class="number">2</span> has heavier pills
+- <span class="number">21.3</span>g → Bottle <span class="number">3</span> has heavier pills
+... and so on
+
+<span class="comment">// The excess weight tells you which bottle!</span></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="behavioral-card" onclick="toggleBehavioral('puzzle2')">
+                    <h3>💧 Measure 4L using 5L and 3L Jugs</h3>
+                    <div class="behavioral-answer" id="puzzle2">
+                        <div class="code-block">
+                            <pre><span class="comment">// Method 1</span>
+
+<span class="keyword">Step 1:</span> Fill <span class="number">5</span>L jug completely              [<span class="number">5</span>L, <span class="number">0</span>L]
+<span class="keyword">Step 2:</span> Pour into <span class="number">3</span>L jug                    [<span class="number">2</span>L, <span class="number">3</span>L]
+<span class="keyword">Step 3:</span> Empty <span class="number">3</span>L jug                         [<span class="number">2</span>L, <span class="number">0</span>L]
+<span class="keyword">Step 4:</span> Pour <span class="number">2</span>L from <span class="number">5</span>L into <span class="number">3</span>L          [<span class="number">0</span>L, <span class="number">2</span>L]
+<span class="keyword">Step 5:</span> Fill <span class="number">5</span>L jug again                   [<span class="number">5</span>L, <span class="number">2</span>L]
+<span class="keyword">Step 6:</span> Pour into <span class="number">3</span>L (only <span class="number">1</span>L space left) [<span class="number">4</span>L, <span class="number">3</span>L] ✓
+
+<span class="comment">// Method 2 (Alternative)</span>
+
+<span class="keyword">Step 1:</span> Fill <span class="number">3</span>L jug                         [<span class="number">0</span>L, <span class="number">3</span>L]
+<span class="keyword">Step 2:</span> Pour into <span class="number">5</span>L jug                    [<span class="number">3</span>L, <span class="number">0</span>L]
+<span class="keyword">Step 3:</span> Fill <span class="number">3</span>L jug again                   [<span class="number">3</span>L, <span class="number">3</span>L]
+<span class="keyword">Step 4:</span> Pour into <span class="number">5</span>L (only <span class="number">2</span>L space)     [<span class="number">5</span>L, <span class="number">1</span>L]
+<span class="keyword">Step 5:</span> Empty <span class="number">5</span>L jug                         [<span class="number">0</span>L, <span class="number">1</span>L]
+<span class="keyword">Step 6:</span> Pour <span class="number">1</span>L from <span class="number">3</span>L into <span class="number">5</span>L          [<span class="number">1</span>L, <span class="number">0</span>L]
+<span class="keyword">Step 7:</span> Fill <span class="number">3</span>L jug                         [<span class="number">1</span>L, <span class="number">3</span>L]
+<span class="keyword">Step 8:</span> Pour all into <span class="number">5</span>L                    [<span class="number">4</span>L, <span class="number">0</span>L] ✓</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="behavioral-card" onclick="toggleBehavioral('puzzle3')">
+                    <h3>🚪 Two Guards and Two Doors</h3>
+                    <div class="behavioral-answer" id="puzzle3">
+                        <p><strong>Problem:</strong> One door leads to freedom, one to death. One guard always lies, one always tells truth. You don't know which is which. You can ask ONE question to ONE guard.</p>
+                        <div class="code-block">
+                            <pre><span class="keyword">The Magic Question:</span>
+
+<span class="string">"If I asked the OTHER guard which door leads to freedom, 
+what would they say?"</span>
+
+<span class="keyword">Then take the OPPOSITE door!</span>
+
+<span class="comment">// Why it works:</span>
+
+<span class="keyword">Scenario 1:</span> You ask the TRUTH-TELLER
+- They honestly tell you what the LIAR would say
+- The liar would point to DEATH door
+- So you get: "They'd say the death door"
+- You take opposite → FREEDOM ✓
+
+<span class="keyword">Scenario 2:</span> You ask the LIAR
+- They lie about what TRUTH-TELLER would say
+- Truth-teller would point to FREEDOM door
+- Liar lies and says: "They'd say the death door"
+- You take opposite → FREEDOM ✓
+
+<span class="comment">// The double-negative cancels out!</span></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><span class="emoji">🎯</span>Final Preparation Checklist</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+                    <div style="background: rgba(76, 175, 80, 0.3); padding: 20px; border-radius: 12px;">
+                        <h3>✅ DSA Must-Know</h3>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li>Two Pointers Technique</li>
+                            <li>HashMap for O(n) solutions</li>
+                            <li>Sliding Window</li>
+                            <li>Linked List Manipulation</li>
+                            <li>Basic DP (Kadane's)</li>
+                            <li>Binary Search variants</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(33, 150, 243, 0.3); padding: 20px; border-radius: 12px;">
+                        <h3>🗄️ SQL Must-Know</h3>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li>Window Functions (RANK, ROW_NUMBER)</li>
+                            <li>JOINs (especially LEFT/INNER)</li>
+                            <li>GROUP BY with HAVING</li>
+                            <li>CTEs (Common Table Expressions)</li>
+                            <li>Aggregations (SUM, AVG, COUNT)</li>
+                            <li>Date/Time functions</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(255, 152, 0, 0.3); padding: 20px; border-radius: 12px;">
+                        <h3>🏗️ System Design</h3>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li>ACID Properties</li>
+                            <li>Normalization (up to 3NF)</li>
+                            <li>Indexing strategies</li>
+                            <li>TCP vs UDP</li>
+                            <li>REST API principles</li>
+                            <li>CAP Theorem basics</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(156, 39, 176, 0.3); padding: 20px; border-radius: 12px;">
+                        <h3>🤝 Behavioral</h3>
+                        <ul style="margin-left: 20px; line-height: 2;">
+                            <li>Prepare 5-6 STAR stories</li>
+                            <li>Know why ZS specifically</li>
+                            <li>Practice guesstimates</li>
+                            <li>Have questions ready</li>
+                            <li>Show enthusiasm & curiosity</li>
+                            <li>Be authentic</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); text-align: center;">
+                <h2><span class="emoji">🚀</span>You've Got This!</h2>
+                <p style="font-size: 1.3em; margin: 20px 0;">
+                    Remember: ZS values problem-solving, clear communication, and growth mindset more than perfect answers.
+                </p>
+                <p style="font-size: 1.1em; margin: 10px 0;">
+                    Be confident, be curious, and be yourself!
+                </p>
+                <p style="font-size: 2em; margin-top: 20px;">💪 Good Luck! 🎯</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Timer functionality
+        let totalSeconds = 120 * 60; // 120 minutes
+        const timerEl = document.getElementById('timer');
+        
+        setInterval(() => {
+            if (totalSeconds > 0) {
+                totalSeconds--;
+                const minutes = Math.floor(totalSeconds / 60);
+                const seconds = totalSeconds % 60;
+                timerEl.textContent = `⏱️ ${minutes}:${seconds.toString().padStart(2, '0')}`;
+            }
+        }, 1000);
+
+        // Section navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active from all nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active to clicked button
+            event.target.classList.add('active');
+            
+            // Trigger visibility for cards
+            setTimeout(() => {
+                observeCards();
+            }, 100);
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Toggle solution
+        function toggleSolution(id) {
+            const solution = document.getElementById(id);
+            solution.classList.toggle('show');
+        }
+
+        // Toggle behavioral answer
+        function toggleBehavioral(id) {
+            const answer = document.getElementById(id);
+            answer.classList.toggle('show');
+        }
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        function observeCards() {
+            document.querySelectorAll('.card').forEach(card => {
+                observer.observe(card);
+            });
+        }
+
+        // Initial observation
+        observeCards();
+
+        // Progress bar
+        window.addEventListener('scroll', () => {
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
+            
+            document.getElementById('progressBar').style.width = scrollPercent + '%';
+        });
+
+        // Add smooth hover effects
+        document.querySelectorAll('.solution-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px) scale(1.05)';
+            });
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case '1':
+                        e.preventDefault();
+                        document.querySelector('[onclick="showSection(\'intro\')"]').click();
+                        break;
+                    case '2':
+                        e.preventDefault();
+                        document.querySelector('[onclick="showSection(\'live-coding\')"]').click();
+                        break;
+                    case '3':
+                        e.preventDefault();
+                        document.querySelector('[onclick="showSection(\'rapid-fire\')"]').click();
+                        break;
+                    case '4':
+                        e.preventDefault();
+                        document.querySelector('[onclick="showSection(\'sql\')"]').click();
+                        break;
+                    case '5':
+                        e.preventDefault();
+                        document.querySelector('[onclick="showSection(\'system\')"]').click();
+                        break;
+                    case '6':
+                        e.preventDefault();
+                        document.querySelector('[onclick="showSection(\'behavioral\')"]').click();
+                        break;
+                }
+            }
+        });
+
+        // Add ripple effect on buttons
+        document.querySelectorAll('.solution-btn, .nav-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple');
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Console Easter Egg
+        console.log('%c🚀 ZS Associates Interview Prep', 'color: #667eea; font-size: 24px; font-weight: bold;');
+        console.log('%c💡 Keyboard Shortcuts: Ctrl/Cmd + 1-6 to navigate sections', 'color: #4caf50; font-size: 14px;');
+        console.log('%cGood luck with your interview! 🎯', 'color: #ff9800; font-size: 16px;');
+    </script>
+</body>
+</html>
